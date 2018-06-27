@@ -1,15 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OutlookAppointmentScheduler
+﻿namespace OutlookAppointmentScheduler
 {
-    class Program
+    using Topshelf;
+    using Topshelf.Quartz;
+    using Quartz;
+
+    public class Program
     {
         static void Main(string[] args)
         {
+            HostFactory.Run(h =>
+            {
+                h.Service<OutlookAppointmentService>(s =>
+                {
+                    s.WhenStarted(service => service.OnStart());
+                    s.WhenStopped(service => service.OnStop());
+                    s.ConstructUsing(() => new OutlookAppointmentService());
+
+                    s.ScheduleQuartzJob(q =>
+                        q.WithJob(() =>
+                            JobBuilder.Create<Appointment>().Build())
+                            .AddTrigger(() => TriggerBuilder.Create()
+                                .WithSimpleSchedule(b => b
+                                    .WithIntervalInSeconds(10)
+                                    .RepeatForever())
+                                .Build()));
+                });
+
+                h.RunAsLocalSystem()
+                    .DependsOnEventLog()
+                    .StartAutomatically()
+                    .EnableServiceRecovery(rc => rc.RestartService(1));
+
+                h.SetServiceName("OutlookAppointment Scheduler");
+                h.SetDisplayName("OutlookAppointment Scheduler");
+                h.SetDescription("Automatically send Outlook appointments at specific times.");
+            });
         }
     }
 }
