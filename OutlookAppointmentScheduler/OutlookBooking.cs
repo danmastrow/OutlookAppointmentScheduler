@@ -122,7 +122,7 @@
             if (isFree)
             {
                 // Use this for debugging: appointment.Display();
-                //appointment.Send();
+                appointment.Send();
                 Console.WriteLine($"{booking} sent.");
             }
             else
