@@ -14,26 +14,30 @@ namespace OutlookAppointmentSchedulerGUI
     public partial class MainForm : Form
     {
         private readonly string serviceName = "OutlookAppointmentScheduler";
+        private readonly string executableName = "OutlookAppointmentScheduler";
+        private readonly string installArguments = "install --autostart";
+        private readonly string uninstallArguments = "uninstall";
+
+        private Timer timer;
+
         public MainForm()
         {
             InitializeComponent();
         }
-        protected override void OnLoad(EventArgs e)
+
+        private void buttonSettings_Click(object sender, EventArgs e)
         {
-            serviceController1.ServiceName = serviceName;
-            serviceController1.MachineName = Environment.MachineName;
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonLaunch_Click(object sender, EventArgs e)
         {
-            //string file = Path.Combine
-            var process = Process.Start("OutlookAppointmentScheduler.exe");
-            //serviceController1.Start();
+            var process = Process.Start(executableName);
         }
 
         private void buttonInstall_Click(object sender, EventArgs e)
         {
-            var process = Process.Start("OutlookAppointmentScheduler.exe", "install --autostart");
+            var process = Process.Start(executableName, installArguments);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -48,7 +52,47 @@ namespace OutlookAppointmentSchedulerGUI
 
         private void buttonUninstall_Click(object sender, EventArgs e)
         {
-            var process = Process.Start("OutlookAppointmentScheduler.exe", "uninstall");
+            var process = Process.Start(executableName, uninstallArguments);
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            serviceController1.ServiceName = serviceName;
+            serviceController1.MachineName = Environment.MachineName;
+            PollService();
+        }
+
+        private void PollService()
+        {
+            timer = new Timer();
+            timer.Interval = 1000;
+            serviceStatusText.Text = "Polling Service...";
+            serviceStatusText.Text = ServiceStatusText();
+
+            timer.Tick += Timer_Tick;
+            timer.Enabled = true;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            serviceStatusText.Text = ServiceStatusText();
+        }
+
+        private string ServiceStatusText()
+        {
+            string result = "";
+            try
+            {
+                serviceController1.Refresh();
+                result = serviceController1.Status.ToString();
+            }
+            catch (Exception ex)
+            {
+                result = "Service not installed.";
+            }
+            return result;
+        }
+
+
     }
 }
