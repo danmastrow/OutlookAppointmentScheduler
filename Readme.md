@@ -1,5 +1,5 @@
-﻿# Outlook Appointment Scheduler
-
+# Outlook Appointment Scheduler 
+[![Build Status](https://travis-ci.org/danmastrow/OutlookAppointmentScheduler.svg?branch=master)](https://travis-ci.org/danmastrow/OutlookAppointmentScheduler)
 ## Overview
 - A Topshelf Service using Quartz Scheduler to automatically create and send Outlook bookings.
 - This could be used for example to make Table Tennis bookings if perhaps they were only available from 7 days in advance.
