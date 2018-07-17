@@ -1,5 +1,6 @@
 ﻿namespace OutlookAppointmentScheduler
 {
+    using System.Collections.Generic;
     using Quartz;
     using Topshelf;
     using Topshelf.Quartz;
@@ -12,22 +13,25 @@
             {
                 x.Service<OutlookAppointmentService>(s =>
                 {
-                    s.WhenStarted(service => service.Start());
-                    s.WhenStopped(service => service.Stop());
-                    s.ConstructUsing(() => new OutlookAppointmentService());
 
-                    s.ScheduleQuartzJob<OutlookAppointmentService>(q =>
+                    s.ConstructUsing(() => new OutlookAppointmentService());
+                    s.WhenStarted((tc, hostControl) => tc.Start(hostControl));
+                    s.WhenStopped((tc, hostControl) => tc.Stop(hostControl));
+
+
+                    s.ScheduleQuartzJob(q =>
                         q.WithJob(() =>
                             JobBuilder.Create<OutlookBooking>().Build())
                         .AddTrigger(() =>
                             TriggerBuilder.Create()
-                        .StartNow() // Test trigger - Starts immediately.
-                               .WithSimpleSchedule(builder => builder
-                                   .WithIntervalInHours(UserSettings.Default.ScheduleIntervalInHours) // Every x hours from then on. (App config)
-                                   .RepeatForever())
-                               .Build())
-
-
+                        .StartAt(DateBuilder.TodayAt
+                                (UserSettings.Default.ScheduleStartTime.Hours,
+                                        UserSettings.Default.ScheduleStartTime.Minutes,
+                                                UserSettings.Default.ScheduleStartTime.Seconds))
+                                .WithSimpleSchedule(builder => builder
+                                    .WithIntervalInHours(24) // Every x hours from then on. (App config)
+                                    .RepeatForever())
+                                .Build())
 
                         // Proper Trigger
                         //.StartAt(DateBuilder.TodayAt
@@ -46,7 +50,6 @@
                         //       .Build())
 
                         );
-
                 });
 
                 x.RunAsLocalSystem()

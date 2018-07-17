@@ -13,7 +13,7 @@
     /// <seealso cref="Quartz.IJob" />
     public class OutlookBooking : IBooking, IJob
     {
-
+        private IList<IBookingData> bookingData;
 
         /// <summary>
         /// Called by the <see cref="T:Quartz.IScheduler" /> when a <see cref="T:Quartz.ITrigger" />
@@ -31,9 +31,14 @@
         public void Execute(IJobExecutionContext context)
         {
             Console.WriteLine("Execute OutlookBooking");
-            var bookingData = PopulateBookingData();
             Send(bookingData);
         }
+
+        public OutlookBooking()
+        {
+            bookingData = PopulateBookingData();
+        }
+
 
         /// <summary>Gets the booking data from the user settings.</summary>
         /// <returns></returns>
@@ -41,7 +46,6 @@
         {
             var result = new List<IBookingData>();
             var recipients = new List<string>();
-            //UserSettings.Default.BookingRecipients.
             this.DayBlackList = new List<DayOfWeek>();
 
             foreach (var day in UserSettings.Default.BookingDayBlackList)

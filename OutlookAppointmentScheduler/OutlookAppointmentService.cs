@@ -1,29 +1,18 @@
 ﻿namespace OutlookAppointmentScheduler
 {
-    using System;
     using Topshelf;
 
-    /// <summary>
-    /// The OutlookAppointment Topshelf Service.
-    /// </summary>
-    public class OutlookAppointmentService
+    /// <summary>The OutlookAppointment Topshelf Service.</summary>
+    /// <seealso cref="Topshelf.ServiceControl" />
+    public class OutlookAppointmentService : ServiceControl
     {
-        /// <summary>
-        /// Starts this instance.
-        /// This has been hardcoded to true, otherwise the service doesnt run.
-        /// </summary>
-        /// <returns>True</returns>
-        public bool Start()
+        public bool Start(HostControl hostControl)
         {
-            Console.WriteLine("Service Started");
+            // Read the settings
             return true;
         }
 
-        /// <summary>
-        /// Stops this instance. This has been hardcoded to true, otherwise the service doesnt run.
-        /// </summary>
-        /// <returns>True</returns>
-        public bool Stop()
+        public bool Stop(HostControl hostControl)
         {
             return true;
         }

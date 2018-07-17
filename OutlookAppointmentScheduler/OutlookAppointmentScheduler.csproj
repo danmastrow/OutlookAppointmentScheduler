@@ -78,12 +78,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Readme.md">
+      <Link>Readme.md</Link>
+    </None>
     <None Include="App.config" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Readme.md" />
     <None Include="UserSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
