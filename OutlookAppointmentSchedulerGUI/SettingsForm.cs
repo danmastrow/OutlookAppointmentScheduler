@@ -5,8 +5,17 @@ namespace OutlookAppointmentSchedulerGUI
 {
     public partial class SettingsForm : Form
     {
+        private Form parent;
+
         public SettingsForm()
         {
+            InitializeComponent();
+        }
+
+        public SettingsForm(Form parent)
+        {
+            this.parent = parent;
+            this.Location = parent.Location;
             InitializeComponent();
         }
 
@@ -17,7 +26,7 @@ namespace OutlookAppointmentSchedulerGUI
 
         protected override void OnClosed(EventArgs e)
         {
-
+            parent.Show();
         }
     }
 }

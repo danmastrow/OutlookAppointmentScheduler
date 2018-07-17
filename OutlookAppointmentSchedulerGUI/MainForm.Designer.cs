@@ -89,6 +89,7 @@
             // serviceStatusText
             // 
             this.serviceStatusText.AutoSize = true;
+            this.serviceStatusText.BackColor = System.Drawing.Color.Transparent;
             this.serviceStatusText.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serviceStatusText.Location = new System.Drawing.Point(162, 134);
             this.serviceStatusText.Name = "serviceStatusText";
@@ -150,7 +151,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
-            this.Text = "Outlook Appointment Scheduler GUI";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Outlook Appointment Scheduler - MainMenu";
+            this.TransparencyKey = System.Drawing.Color.Gray;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

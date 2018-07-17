@@ -34,9 +34,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 611);
+            this.ClientSize = new System.Drawing.Size(559, 462);
             this.Name = "SettingsForm";
-            this.Text = "SettingsForm";
+            this.Text = "Outlook Appointment Scheduler - Settings";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.ResumeLayout(false);
 

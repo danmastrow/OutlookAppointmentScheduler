@@ -27,7 +27,9 @@ namespace OutlookAppointmentSchedulerGUI
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-
+            var settingsForm = new SettingsForm(this);
+            this.Hide();
+            settingsForm.Show();
         }
 
         private void buttonLaunch_Click(object sender, EventArgs e)
