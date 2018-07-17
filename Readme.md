@@ -1,12 +1,20 @@
 # Outlook Appointment Scheduler 
+![alt text](https://github.com/danmastrow/OutlookAppointmentScheduler/raw/master/OutlookAppointmentSchedulerGUI/img/bookingIcon.png "Logo")
 [![Build Status](https://travis-ci.org/danmastrow/OutlookAppointmentScheduler.svg?branch=master)](https://travis-ci.org/danmastrow/OutlookAppointmentScheduler)
 ## Overview
-- A Topshelf Service using Quartz Scheduler to automatically create and send Outlook bookings.
-- This could be used for example to make Table Tennis bookings if perhaps they were only available from 7 days in advance.
+A Topshelf Service with a Windows Form GUI using Quartz Scheduler to automatically create and send Outlook bookings at specific times.
+
+This could be used for example to make Table Tennis bookings if perhaps they were only available from 7 days in advance.
 
 ## Installation
-- Install the service with the following steps:
+**GUI Install**
+Build the solution.
+Run the GUI project.
+Select Install Service.
 
+
+Manual Install of Service:
+- Install the service with the following steps:
 - Compile the project.
 - Open up a console or terminal window.
 - Change directory to the location of the .exe file.
@@ -18,11 +26,10 @@ cd OutlookAppointmentScheduler/bin
 ````
 OutlookAppointmentScheduler.exe install --autostart
 ````
-For further service installation/configuration help see the following link.
+For further manual service installation/configuration help see the following link.
 http://docs.topshelf-project.com/en/latest/overview/commandline.html
 
 ## Todo
-### In no particular order:
 - [x] Setup Topshelf and Quartz scheduler.
 - [x] Add config file to read appointment information.
 - [x] Create booking and send based upon config information.

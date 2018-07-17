@@ -133,6 +133,7 @@
             this.buttonRestart.TabIndex = 9;
             this.buttonRestart.Text = "Restart Service";
             this.buttonRestart.UseVisualStyleBackColor = true;
+            this.buttonRestart.Click += new System.EventHandler(this.buttonRestart_Click);
             // 
             // MainForm
             // 

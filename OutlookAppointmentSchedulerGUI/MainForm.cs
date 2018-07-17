@@ -44,12 +44,27 @@ namespace OutlookAppointmentSchedulerGUI
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            serviceController1.Start();
+            StartService();
+        }
+
+        private void StartService()
+        {
+            serviceController1.Refresh();
+            if (serviceController1.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                serviceController1.Start();
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            serviceController1.Stop();
+            StopService();
+        }
+
+        private void StopService()
+        {
+            if (serviceController1.CanStop)
+            {
+                serviceController1.Stop();
+            }
         }
 
         private void buttonUninstall_Click(object sender, EventArgs e)
@@ -95,6 +110,10 @@ namespace OutlookAppointmentSchedulerGUI
             return result;
         }
 
-
+        private void buttonRestart_Click(object sender, EventArgs e)
+        {
+            StopService();
+            StartService();
+        }
     }
 }
