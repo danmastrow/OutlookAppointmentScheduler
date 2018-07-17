@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAppointmentSchedulerGUI", "OutlookAppointmentSchedulerGUI\OutlookAppointmentSchedulerGUI.csproj", "{81A353DE-0F1D-4DDB-8BA5-B202889AEEDD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9DD1EFB1-3923-43B9-A65E-09FBFE467625} = {9DD1EFB1-3923-43B9-A65E-09FBFE467625}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAppointmentScheduler", "OutlookAppointmentScheduler\OutlookAppointmentScheduler.csproj", "{9DD1EFB1-3923-43B9-A65E-09FBFE467625}"
 EndProject
