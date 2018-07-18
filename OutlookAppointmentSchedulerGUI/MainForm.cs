@@ -124,7 +124,7 @@ namespace OutlookAppointmentSchedulerGUI
         private void SetButtonStatusByServiceStatus()
         {
             var enabledButtons = new List<Button>();
-            DisableAllButtons();
+
             //switch (serviceStatusText)
             //{
             //    case System.ServiceProcess.ServiceControllerStatus.ContinuePending:
@@ -226,5 +226,27 @@ namespace OutlookAppointmentSchedulerGUI
             StopService();
             StartService();
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+
+        {
+
+            // user clicked an item of listview control
+
+            if (listView1.SelectedItems.Count == 1)
+
+            {//display the text of selected item
+
+                MessageBox.Show(listView1.SelectedItems[0].Text);
+
+            }
+
+        }
+
     }
 }
