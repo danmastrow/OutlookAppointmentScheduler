@@ -21,7 +21,7 @@ namespace OutlookAppointmentSchedulerGUI
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-
+            // Read the OutlookAppointmentScheduler.exe.config
         }
 
         protected override void OnClosed(EventArgs e)
