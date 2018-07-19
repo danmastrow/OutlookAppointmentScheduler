@@ -43,6 +43,7 @@
             this.labelWIP.TabIndex = 0;
             this.labelWIP.Text = "Work In Progess:\r\nIs planned to allow modification of the service app.config.\r\nSh" +
     "ould also prompt the user to restart the service.\r\n";
+            this.labelWIP.Click += new System.EventHandler(this.labelWIP_Click);
             // 
             // buttonBack
             // 

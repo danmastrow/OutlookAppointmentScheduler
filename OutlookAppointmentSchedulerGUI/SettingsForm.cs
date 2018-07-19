@@ -5,14 +5,14 @@ namespace OutlookAppointmentSchedulerGUI
 {
     public partial class SettingsForm : Form
     {
-        private Form parent;
+        private MainForm parent;
 
         public SettingsForm()
         {
             InitializeComponent();
         }
 
-        public SettingsForm(Form parent)
+        public SettingsForm(MainForm parent)
         {
             this.parent = parent;
             this.Location = parent.Location;
@@ -33,6 +33,11 @@ namespace OutlookAppointmentSchedulerGUI
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             // Read the OutlookAppointmentScheduler.exe.config
+        }
+
+        private void labelWIP_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

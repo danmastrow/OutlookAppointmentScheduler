@@ -10,14 +10,14 @@
 
     public partial class CreateBookingForm : Form
     {
-        private Form parent;
+        private MainForm parent;
 
         public CreateBookingForm()
         {
             InitializeComponent();
         }
 
-        public CreateBookingForm(Form parent)
+        public CreateBookingForm(MainForm parent)
         {
             this.parent = parent;
             this.Location = parent.Location;
@@ -81,6 +81,7 @@
                 MessageBox.Show($"{fileName.ToString()} Created");
 
                 this.Hide();
+                parent.RefreshData();
                 parent.Show();
             }
             else

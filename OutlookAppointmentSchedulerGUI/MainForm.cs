@@ -36,6 +36,14 @@
             InitalizeTimer();
         }
 
+        /// <summary>Refreshes all potentially changing data.</summary>
+        public void RefreshData()
+        {
+            serviceStatusText.Text = ServiceStatusText();
+            SetButtonStatusByServiceStatus();
+            RefreshBookingDisplay();
+        }
+
         private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -277,15 +285,6 @@
             this.bookingData = DeserializeJsonToBookingData(UserSettings.Default.BookingDirectory);
             PopulateListView(bookingListView, bookingData);
         }
-
-        /// <summary>Refreshes all potentially changing data.</summary>
-        private void RefreshData()
-        {
-            serviceStatusText.Text = ServiceStatusText();
-            SetButtonStatusByServiceStatus();
-            RefreshBookingDisplay();
-        }
-
         /// <summary>Services the status text.</summary>
         /// <returns></returns>
         private string ServiceStatusText()
