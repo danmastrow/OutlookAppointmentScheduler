@@ -1,12 +1,11 @@
 ﻿namespace OutlookAppointmentScheduler
 {
+    using Newtonsoft.Json;
+    using Quartz;
     using System;
     using System.Collections.Generic;
-    using Quartz;
-    using Outlook = Microsoft.Office.Interop.Outlook;
-    using System.Linq;
     using System.IO;
-    using Newtonsoft.Json;
+    using Outlook = Microsoft.Office.Interop.Outlook;
 
     /// <summary>
     /// Responsible for sending an OutlookBooking with the IBookingData
@@ -44,6 +43,7 @@
             Console.WriteLine("Execute OutlookBooking");
             Send(bookingData);
         }
+
         /// <summary>Gets the booking data from JSON files in a directory.</summary>
         /// <returns></returns>
         public IList<IBookingData> PopulateBookingData(string directory)
@@ -72,7 +72,7 @@
         {
             IList<IBookingData> result = new List<IBookingData>();
             DirectoryInfo directoryInfo = new DirectoryInfo(bookingDirectory);
-            Directory.CreateDirectory(bookingDirectory);
+            Directory.CreateDirectory(bookingDirectory); // Create the directory if it doesn't already exist.
 
             foreach (var jsonFile in directoryInfo.GetFiles(fileSearchPattern))
             {
@@ -109,7 +109,8 @@
         private bool SendOutlookMeeting(IBookingData booking)
         {
             Console.WriteLine($"Sending {booking.ToString()}");
-            try {
+            try
+            {
                 var startDate = DateTime.Now.AddDays(booking.NumberOfDaysInFuture).Date + booking.Time;
                 var endDate = startDate.AddMinutes(booking.DurationInMinutes);
 
@@ -123,7 +124,6 @@
                 appointment.Location = booking.Location;
                 appointment.Start = startDate;
                 appointment.End = endDate;
-
                 appointment.Body = booking.Body;
                 appointment.Subject = booking.Subject;
 
