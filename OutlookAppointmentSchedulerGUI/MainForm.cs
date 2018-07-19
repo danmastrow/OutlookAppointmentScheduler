@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace OutlookAppointmentSchedulerGUI
+﻿namespace OutlookAppointmentSchedulerGUI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Windows.Forms;
+
     public partial class MainForm : Form
     {
         private readonly string serviceName = "OutlookAppointmentScheduler";
@@ -19,6 +14,7 @@ namespace OutlookAppointmentSchedulerGUI
         private readonly string uninstallArguments = "uninstall";
 
         private Timer timer;
+        private Form settingsForm, createBookingForm;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm" /> class.
@@ -36,7 +32,7 @@ namespace OutlookAppointmentSchedulerGUI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            var settingsForm = new SettingsForm(this);
+            if (settingsForm == null) { settingsForm = new SettingsForm(this); }
             this.Hide();
             settingsForm.Show();
         }
@@ -224,6 +220,8 @@ namespace OutlookAppointmentSchedulerGUI
         private void buttonRestart_Click(object sender, EventArgs e)
         {
             StopService();
+            serviceStatusText.Text = ServiceStatusText();
+            serviceController1.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(2500));
             StartService();
         }
 
@@ -232,21 +230,11 @@ namespace OutlookAppointmentSchedulerGUI
 
         }
 
-        private void listView1_DoubleClick(object sender, EventArgs e)
-
+        private void buttonAddBooking_Click(object sender, EventArgs e)
         {
-
-            // user clicked an item of listview control
-
-            if (listView1.SelectedItems.Count == 1)
-
-            {//display the text of selected item
-
-                MessageBox.Show(listView1.SelectedItems[0].Text);
-
-            }
-
+            if (createBookingForm == null) { createBookingForm = new CreateBookingForm(this); }
+            this.Hide();
+            createBookingForm.Show();
         }
-
     }
 }

@@ -51,6 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateBookingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateBookingForm.Designer.cs">
+      <DependentUpon>CreateBookingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CreateBookingForm.resx">
+      <DependentUpon>CreateBookingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,6 +108,12 @@
     <Content Include="img\bookingIcon.ico" />
     <None Include="img\bookingIcon.png" />
     <Content Include="img\gearIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OutlookAppointmentScheduler\OutlookAppointmentScheduler.csproj">
+      <Project>{9DD1EFB1-3923-43B9-A65E-09FBFE467625}</Project>
+      <Name>OutlookAppointmentScheduler</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

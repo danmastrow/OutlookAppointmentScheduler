@@ -32,7 +32,7 @@
             "Test Booking",
             "12:30:00",
             "30 minutes",
-            "Location",
+            "#AU Table Tennis",
             "Daniel Mastrowicz"}, -1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.serviceController1 = new System.ServiceProcess.ServiceController();
@@ -184,7 +184,7 @@
             // columnHeaderBookingDuration
             // 
             this.columnHeaderBookingDuration.Text = "Duration";
-            this.columnHeaderBookingDuration.Width = 117;
+            this.columnHeaderBookingDuration.Width = 84;
             // 
             // columnHeaderLocation
             // 
@@ -206,6 +206,7 @@
             this.buttonAddBooking.TabIndex = 12;
             this.buttonAddBooking.Text = "+";
             this.buttonAddBooking.UseVisualStyleBackColor = true;
+            this.buttonAddBooking.Click += new System.EventHandler(this.buttonAddBooking_Click);
             // 
             // buttonRemoveBooking
             // 
