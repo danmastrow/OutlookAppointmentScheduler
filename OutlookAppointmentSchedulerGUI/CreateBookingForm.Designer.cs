@@ -77,13 +77,17 @@
             // 
             this.bookingTimeInput.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.bookingTimeInput.Location = new System.Drawing.Point(222, 175);
+            this.bookingTimeInput.MaxDate = new System.DateTime(1753, 1, 2, 0, 0, 0, 0);
             this.bookingTimeInput.Name = "bookingTimeInput";
             this.bookingTimeInput.Size = new System.Drawing.Size(121, 25);
             this.bookingTimeInput.TabIndex = 4;
+            this.bookingTimeInput.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             // 
             // bookingEnabledInput
             // 
             this.bookingEnabledInput.AutoSize = true;
+            this.bookingEnabledInput.Checked = true;
+            this.bookingEnabledInput.CheckState = System.Windows.Forms.CheckState.Checked;
             this.bookingEnabledInput.Location = new System.Drawing.Point(222, 105);
             this.bookingEnabledInput.Name = "bookingEnabledInput";
             this.bookingEnabledInput.Size = new System.Drawing.Size(125, 21);

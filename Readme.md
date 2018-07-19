@@ -37,6 +37,7 @@ http://docs.topshelf-project.com/en/latest/overview/commandline.html
 - [x] Attach a Windows Form project to the solution that manages the service and monitors the service status.
 - [ ] 🔴 Write Appointment Bookings to JSON files and read from that in the Service.
 - [ ] Resize the MainForm GUI to the size of the ListView on load.
+- [ ] Provide feedback on common error messages (Admin Issues, FileNotFound, ServiceNotFound)
 - [ ] Add Windows Form Functionality (Settings Page) that reads/writes to the config file for easy configurability.
 - [ ] Refactor the configuration reading to be on startup, rather than on Job execute (provide the option for both).
 - [ ] Implement Serilog logging and metrics in the service.
@@ -44,6 +45,7 @@ http://docs.topshelf-project.com/en/latest/overview/commandline.html
 - [ ] Read and write appointment information from database.
 
 ## Gotcha's
+- Currently to Install the service you must be an Administrator on your Machine, or at least run the GUI as as Admin.
 - When building the Service, make sure that it is not already running on your system, otherwise you may not be able to build.
   - This is only the case if you are installing the service from your build output folder.
 - ~~A small quite annoying gotcha that I found with setting up Quartz and Topshelf is that the newer versions (3.0+) of Quartz has a lot of integration issues with the topshelf library used. So if you make a similiar Quartz and Topshelf project, use the v2.32 of Quartz.~~

@@ -25,18 +25,6 @@
             IntializeListViews();
         }
 
-        private void IntializeListViews()
-        {
-            foreach (var val in Enum.GetValues(typeof(BookingType))) {
-                bookingTypeInput.Items.Add(val.ToString());
-            }
-        }
-
-        private void CreateBooking_Load(object sender, EventArgs e)
-        {
-
-        }
-
         protected override void OnClosed(EventArgs e)
         {
             parent.Show();
@@ -78,26 +66,48 @@
             };
 
             Directory.CreateDirectory(directory); // Interestingly enough it doesnt matter whether this already exists when attempting to create.
-            using (StreamWriter file = File.CreateText(directory + "/test.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, bookingData);
+            var fileName = $"{bookingData.Name.Replace(" ", "-").Trim()}{DateTime.Now.ToString(@"dd-MMM-yyyy")}.json";
+
+            var invalidFileName = string.IsNullOrEmpty(fileName) ||
+              fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
+
+            if (invalidFileName) {
+                using (StreamWriter file = File.CreateText(directory + "\\" + fileName))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, bookingData);
+                }
+
+                MessageBox.Show($"{fileName.ToString()} Created");
+
+                this.Hide();
+                parent.Show();
             }
-
-            MessageBox.Show($"{bookingData.ToString()} Created");
-
-            this.Hide();
-            parent.Show();
+            else
+            {
+                MessageBox.Show($"{fileName.ToString()} is an invalid filename, please rename the Booking Name.");
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
+        private void CreateBooking_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void IntializeListViews()
+        {
+            foreach (var val in Enum.GetValues(typeof(BookingType)))
+            {
+                bookingTypeInput.Items.Add(val.ToString());
+            }
+            // Set default item to first.
+            bookingTypeInput.SelectedItem = bookingTypeInput.Items[0];
+        }
         private void labelType_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

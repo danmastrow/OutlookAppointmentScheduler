@@ -159,6 +159,7 @@
             this.buttonRemoveBooking.TabIndex = 13;
             this.buttonRemoveBooking.Text = "-";
             this.buttonRemoveBooking.UseVisualStyleBackColor = true;
+            this.buttonRemoveBooking.Click += new System.EventHandler(this.buttonRemoveBooking_Click);
             // 
             // bookingListView
             // 

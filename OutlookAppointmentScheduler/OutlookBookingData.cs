@@ -67,6 +67,10 @@
         [JsonProperty("DayBlackList")]
         public IList<DayOfWeek> DayBlackList { get; set; }
 
+        /// <summary>Gets or sets the creation time.</summary>
+        /// <value>The creation time.</value>
+        public DateTime CreationTime { get; set; }
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents the OutlookBookingData
         /// </summary>

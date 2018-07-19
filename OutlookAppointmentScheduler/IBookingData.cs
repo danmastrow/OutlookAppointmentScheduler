@@ -63,5 +63,9 @@
         /// <value>The day black list.</value>
         [JsonProperty("DayBlackList")]
         IList<DayOfWeek> DayBlackList { get; set; }
+
+        /// <summary>Gets or sets the creation time.</summary>
+        /// <value>The creation time.</value>
+        DateTime CreationTime { get; set; }
     }
 }

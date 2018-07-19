@@ -19,11 +19,6 @@ namespace OutlookAppointmentSchedulerGUI
             InitializeComponent();
         }
 
-        private void SettingsForm_Load(object sender, EventArgs e)
-        {
-            // Read the OutlookAppointmentScheduler.exe.config
-        }
-
         protected override void OnClosed(EventArgs e)
         {
             parent.Show();
@@ -33,6 +28,11 @@ namespace OutlookAppointmentSchedulerGUI
         {
             this.Hide();
             parent.Show();
+        }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+            // Read the OutlookAppointmentScheduler.exe.config
         }
     }
 }
