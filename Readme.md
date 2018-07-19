@@ -3,16 +3,15 @@
 [![Build Status](https://travis-ci.org/danmastrow/OutlookAppointmentScheduler.svg?branch=master)](https://travis-ci.org/danmastrow/OutlookAppointmentScheduler)
 ## Overview
 A Topshelf Service with a Windows Form GUI using Quartz Scheduler to automatically create and send Outlook bookings at specific times.
-
+The service reads from JSON files, that are generated from the GUI.
 This could be used for example to make Table Tennis bookings if perhaps they were only available from 7 days in advance.
 
 ## Installation
 **GUI Install**
 1. Build the solution.
 2. Run the GUI project.
-3. Select Install Service.
-4. The status of the service should now be displayed.
-
+3. Select Install or Launch Service.
+4. The service should now be running and the status of the service should now be displayed if installed.
 
 **Manual Install of Service:**
 - Install the service with the following steps:
@@ -40,8 +39,6 @@ http://docs.topshelf-project.com/en/latest/overview/commandline.html
 - [ ] Resize the MainForm GUI to the size of the ListView on load.
 - [ ] Provide feedback on common error messages (Admin Issues, FileNotFound, ServiceNotFound)
 - [ ] Add Windows Form Functionality (Settings Page) that reads/writes to the config file for easy configurability.
-- [ ] Refactor the configuration reading to be on startup, rather than on Job execute (provide the option for both).
-
 - [ ] Read logs of service from GUI and display them.
 - [ ] Read and write appointment information from database.
 
