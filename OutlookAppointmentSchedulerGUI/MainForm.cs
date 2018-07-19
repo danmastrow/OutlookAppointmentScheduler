@@ -9,9 +9,11 @@
     using Newtonsoft.Json;
     using OutlookAppointmentScheduler;
     using System.Reflection;
+    using System.Collections;
 
     public partial class MainForm : Form
     {
+        private readonly int pollInterval = 3000;
         private readonly string serviceName = "OutlookAppointmentScheduler";
         private readonly string executableName = "OutlookAppointmentScheduler";
         private readonly string installArguments = "install --autostart";
@@ -26,10 +28,16 @@
         public MainForm()
         {
             InitializeComponent();
+            IntiializeService();
+            InitializeBookingListView();
+            RefreshData();
+            InitalizeTimer();
+        }
+
+        private void IntiializeService()
+        {
             serviceController1.ServiceName = serviceName;
             serviceController1.MachineName = Environment.MachineName;
-            InitializeBookingListView();
-            PollService();
         }
 
         private void InitializeBookingListView()
@@ -122,10 +130,10 @@
 
         }
 
-        private void PollService()
+        private void InitalizeTimer()
         {
             timer = new Timer();
-            timer.Interval = 3000;
+            timer.Interval = pollInterval;
             serviceStatusText.Text = "Polling Service...";
             serviceStatusText.Text = ServiceStatusText();
 
@@ -135,18 +143,21 @@
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Update the status text
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
             serviceStatusText.Text = ServiceStatusText();
             SetButtonStatusByServiceStatus();
             RefreshBookingDisplay();
         }
 
-
         private void RefreshBookingDisplay()
         {
             // Read every .json file in the bookings directory and update the ListView
             var bookingData = DeserializeJsonToBookingData(UserSettings.Default.BookingDirectory);
-            PopulateListView(bookingData);
+            PopulateListView(bookingListView,bookingData);
         }
 
         /// <summary>Deserializes every json file in a directory as BookingData.</summary>
@@ -176,7 +187,7 @@
 
         /// <summary>Populates the Booking ListView with all Booking.JSON files.</summary>
         /// <param name="bookingData">The booking data.</param>
-        private void PopulateListView(IList<IBookingData> bookingData)
+        private void PopulateListView(ListView listView, IList<IBookingData> bookingData)
         {
             bookingListView.Items.Clear();
 
@@ -186,8 +197,23 @@
             foreach (var booking in bookingData)
             {
                 var listViewData = FormatBookingDataAsListViewItem(booking);
-                bookingListView.Items.Add(listViewData);
+                listViewData.Group = GetListViewGroupByName(listView, booking.Type.ToString());
+                listView.Items.Add(listViewData);
             }
+        }
+
+        private ListViewGroup GetListViewGroupByName(ListView listView, string v)
+        {
+            ListViewGroup result = null;
+            foreach (ListViewGroup group in listView.Groups)
+            {
+                if(group.Header == v)
+                {
+                    result = group;
+                    return result;
+                }
+            }
+             return result;
         }
 
         /// <summary>Formats the booking data as ListView item.</summary>
@@ -198,8 +224,19 @@
             var props = new List<string>();
             foreach (var prop in typeof(IBookingData).GetProperties())
             {
-                var val = prop.GetValue(bookingData).ToString();
-                props.Add(val);
+                string value = "";
+                if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(String))
+                {
+                    foreach(var collectionItem in prop.GetValue(bookingData) as IList)
+                    {
+                        value += $"{collectionItem};"; 
+                    }
+                }
+                else
+                {
+                    value = prop.GetValue(bookingData).ToString();
+                }
+                props.Add(value);
             }
             return new ListViewItem(props.ToArray());
         }

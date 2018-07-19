@@ -35,8 +35,8 @@ http://docs.topshelf-project.com/en/latest/overview/commandline.html
 - [x] Add config file to read appointment information.
 - [x] Create booking and send based upon config information.
 - [x] Attach a Windows Form project to the solution that manages the service and monitors the service status.
-
 - [ ] 🔴 Write Appointment Bookings to JSON files and read from that in the Service.
+- [ ] Resize the MainForm GUI to the size of the ListView on load.
 - [ ] Add Windows Form Functionality (Settings Page) that reads/writes to the config file for easy configurability.
 - [ ] Refactor the configuration reading to be on startup, rather than on Job execute (provide the option for both).
 - [ ] Implement Serilog logging and metrics in the service.

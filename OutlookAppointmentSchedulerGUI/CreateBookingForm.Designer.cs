@@ -52,6 +52,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.emailRecipientsInput = new System.Windows.Forms.RichTextBox();
             this.bookingDayBlackListInput = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bookingDurationInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingDaysInFutureInput)).BeginInit();
             this.SuspendLayout();
@@ -134,8 +135,13 @@
             // 
             this.bookingDurationInput.Location = new System.Drawing.Point(222, 249);
             this.bookingDurationInput.Name = "bookingDurationInput";
-            this.bookingDurationInput.Size = new System.Drawing.Size(120, 25);
+            this.bookingDurationInput.Size = new System.Drawing.Size(47, 25);
             this.bookingDurationInput.TabIndex = 11;
+            this.bookingDurationInput.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             // 
             // bookingTypeInput
             // 
@@ -270,10 +276,20 @@
             this.bookingDayBlackListInput.Size = new System.Drawing.Size(120, 72);
             this.bookingDayBlackListInput.TabIndex = 28;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(275, 251);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(54, 17);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "Minutes";
+            // 
             // CreateBookingForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(559, 462);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.bookingDayBlackListInput);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.emailRecipientsInput);
@@ -334,5 +350,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox emailRecipientsInput;
         private System.Windows.Forms.ListBox bookingDayBlackListInput;
+        private System.Windows.Forms.Label label9;
     }
 }
