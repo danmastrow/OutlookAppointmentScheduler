@@ -5,6 +5,8 @@
     using Quartz;
     using Outlook = Microsoft.Office.Interop.Outlook;
     using System.Linq;
+    using System.IO;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Responsible for sending an OutlookBooking with the IBookingData
@@ -14,6 +16,15 @@
     public class OutlookBooking : IBooking, IJob
     {
         private IList<IBookingData> bookingData;
+        private readonly string fileSearchPattern = "*.json";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OutlookBooking"/> class.
+        /// </summary>
+        public OutlookBooking()
+        {
+            bookingData = PopulateBookingData(UserSettings.Default.BookingDirectory);
+        }
 
         /// <summary>
         /// Called by the <see cref="T:Quartz.IScheduler" /> when a <see cref="T:Quartz.ITrigger" />
@@ -33,46 +44,11 @@
             Console.WriteLine("Execute OutlookBooking");
             Send(bookingData);
         }
-
-        public OutlookBooking()
-        {
-            bookingData = PopulateBookingData();
-        }
-
-
-        /// <summary>Gets the booking data from the user settings.</summary>
+        /// <summary>Gets the booking data from JSON files in a directory.</summary>
         /// <returns></returns>
-        public IList<IBookingData> PopulateBookingData()
+        public IList<IBookingData> PopulateBookingData(string directory)
         {
-            var result = new List<IBookingData>();
-            var recipients = new List<string>();
-            this.DayBlackList = new List<DayOfWeek>();
-
-            foreach (var day in UserSettings.Default.BookingDayBlackList)
-            {
-                this.DayBlackList.Add((DayOfWeek)Enum.Parse(typeof(DayOfWeek), day));
-            }
-
-            foreach (var recipient in UserSettings.Default.BookingRecipients)
-            {
-                recipients.Add(recipient);
-            }
-
-            foreach (var bookingTime in UserSettings.Default.BookingTimesToCheck)
-            {
-                result.Add(new OutlookBookingData()
-                {
-                    Time = TimeSpan.Parse(bookingTime),
-                    Location = UserSettings.Default.BookingLocation,
-                    DurationInMinutes = UserSettings.Default.DurationOfBookingInMinutes,
-                    NumberOfDaysInFuture = UserSettings.Default.BookingDaysInFuture,
-                    Body = UserSettings.Default.BookingBodyText,
-                    Subject = UserSettings.Default.BookingSubjectText,
-                    Recipients = recipients
-                });
-            }
-
-            return result;
+            return this.DeserializeJsonToBookingData(directory);
         }
 
         /// <summary>Sends the specified booking data.</summary>
@@ -89,51 +65,29 @@
             }
         }
 
-        /// <summary>Checks whether the location and time is free, then sends and returns whether was free.</summary>
-        /// <param name="booking">The booking.</param>
-        /// <returns>Location is free or not prior to booking.</returns>
-        private bool SendOutlookMeeting(IBookingData booking)
+        /// <summary>Deserializes every json file in a directory as BookingData.</summary>
+        /// <param name="bookingDirectory">The booking directory.</param>
+        /// <returns>BookingData</returns>
+        private IList<IBookingData> DeserializeJsonToBookingData(string bookingDirectory)
         {
+            IList<IBookingData> result = new List<IBookingData>();
+            DirectoryInfo directoryInfo = new DirectoryInfo(bookingDirectory);
+            Directory.CreateDirectory(bookingDirectory);
 
-            var startDate = DateTime.Now.AddDays(booking.NumberOfDaysInFuture).Date + booking.Time;
-            var endDate = startDate.AddMinutes(booking.DurationInMinutes);
-
-            if (DayBlackList.Contains(startDate.DayOfWeek))
-                return false;
-
-            var app = new Outlook.Application();
-            Outlook.AppointmentItem appointment = app.CreateItem(Outlook.OlItemType.olAppointmentItem);
-            appointment.MeetingStatus = Outlook.OlMeetingStatus.olMeeting;
-
-            appointment.Location = booking.Location;
-            appointment.Start = startDate;
-            appointment.End = endDate;
-
-            appointment.Body = booking.Body;
-            appointment.Subject = booking.Subject;
-
-            foreach (var recipient in booking.Recipients)
+            foreach (var jsonFile in directoryInfo.GetFiles(fileSearchPattern))
             {
-                appointment.Recipients.Add(recipient);
+                using (StreamReader file = File.OpenText(jsonFile.FullName))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        IBookingData bookingData = serializer.Deserialize<OutlookBookingData>(reader);
+                        bookingData.CreationTime = jsonFile.CreationTime;
+                        result.Add(bookingData);
+                    }
+                }
             }
-
-            appointment.Recipients.Add(booking.Location);
-
-            appointment.Recipients.ResolveAll();
-
-            bool isFree = LocationIsFree(startDate, booking.Location, new Outlook.Application());
-
-            if (isFree)
-            {
-                // Use this for debugging: appointment.Display();
-                appointment.Send();
-                Console.WriteLine($"{booking} sent.");
-            }
-            else
-            {
-                Console.WriteLine($"{booking} not free.");
-            }
-            return isFree;
+            return result;
         }
 
         /// <summary>Returns whether a location is available in Outlook.</summary>
@@ -149,8 +103,59 @@
             return freeHalfas[timeInHalfas].ToString() == "0";
         }
 
-        /// <summary>Gets or sets the days that are blacklisted.</summary>
-        /// <value>The day black list.</value>
-        public IList<DayOfWeek> DayBlackList { get; set; }
+        /// <summary>Checks whether the location and time is free, then sends and returns whether was free.</summary>
+        /// <param name="booking">The booking.</param>
+        /// <returns>Location is free or not prior to booking.</returns>
+        private bool SendOutlookMeeting(IBookingData booking)
+        {
+            Console.WriteLine($"Sending {booking.ToString()}");
+            try {
+                var startDate = DateTime.Now.AddDays(booking.NumberOfDaysInFuture).Date + booking.Time;
+                var endDate = startDate.AddMinutes(booking.DurationInMinutes);
+
+                if (booking.DayBlackList.Contains(startDate.DayOfWeek))
+                    return false;
+
+                var app = new Outlook.Application();
+                Outlook.AppointmentItem appointment = app.CreateItem(Outlook.OlItemType.olAppointmentItem);
+                appointment.MeetingStatus = Outlook.OlMeetingStatus.olMeeting;
+
+                appointment.Location = booking.Location;
+                appointment.Start = startDate;
+                appointment.End = endDate;
+
+                appointment.Body = booking.Body;
+                appointment.Subject = booking.Subject;
+
+                foreach (var recipient in booking.Recipients)
+                {
+                    appointment.Recipients.Add(recipient);
+                }
+
+                appointment.Recipients.Add(booking.Location);
+
+                appointment.Recipients.ResolveAll();
+
+                bool isFree = LocationIsFree(startDate, booking.Location, new Outlook.Application());
+
+                if (isFree)
+                {
+                    // Use this for debugging: appointment.Display();
+                    appointment.Display();
+                    //appointment.Send();
+                    Console.WriteLine($"{booking} sent.");
+                }
+                else
+                {
+                    Console.WriteLine($"{booking} not free.");
+                }
+                return isFree;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: OutlookMeeting failed to send: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

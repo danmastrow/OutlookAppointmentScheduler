@@ -11,46 +11,57 @@
         {
             HostFactory.Run(x =>
             {
-                x.Service<OutlookAppointmentService>(s =>
+                var startType = UserSettings.Default.StartType;
+                if (startType == "TodayAt")
                 {
+                    x.Service<OutlookAppointmentService>(s =>
+                    {
 
-                    s.ConstructUsing(() => new OutlookAppointmentService());
-                    s.WhenStarted((tc, hostControl) => tc.Start(hostControl));
-                    s.WhenStopped((tc, hostControl) => tc.Stop(hostControl));
+                        s.ConstructUsing(() => new OutlookAppointmentService());
+                        s.WhenStarted((tc, hostControl) => tc.Start(hostControl));
+                        s.WhenStopped((tc, hostControl) => tc.Stop(hostControl));
 
+                        s.ScheduleQuartzJob(q =>
+                            q.WithJob(() =>
+                                JobBuilder.Create<OutlookBooking>().Build())
+                            .AddTrigger(() =>
+                                TriggerBuilder.Create()
+                            .StartAt(DateBuilder.TodayAt
+                                    (UserSettings.Default.ScheduleStartTime.Hours, UserSettings.Default.ScheduleStartTime.Minutes, UserSettings.Default.ScheduleStartTime.Seconds))
+                                    .WithSimpleSchedule(builder => builder
+                                        .WithIntervalInHours(UserSettings.Default.ScheduleIntervalInHours) // Every x hours from then on. (App config)
+                                        .RepeatForever())
+                                    .Build())
+                            );
+                    });
+                }
+                else if (startType == "StartNow")
+                {
+                    x.Service<OutlookAppointmentService>(s =>
+                    {
 
-                    s.ScheduleQuartzJob(q =>
-                        q.WithJob(() =>
-                            JobBuilder.Create<OutlookBooking>().Build())
-                        .AddTrigger(() =>
-                            TriggerBuilder.Create()
-                        .StartAt(DateBuilder.TodayAt
-                                (UserSettings.Default.ScheduleStartTime.Hours,
-                                        UserSettings.Default.ScheduleStartTime.Minutes,
-                                                UserSettings.Default.ScheduleStartTime.Seconds))
-                                .WithSimpleSchedule(builder => builder
-                                    .WithIntervalInHours(24) // Every x hours from then on. (App config)
-                                    .RepeatForever())
-                                .Build())
+                        s.ConstructUsing(() => new OutlookAppointmentService());
+                        s.WhenStarted((tc, hostControl) => tc.Start(hostControl));
+                        s.WhenStopped((tc, hostControl) => tc.Stop(hostControl));
 
-                        // Proper Trigger
-                        //.StartAt(DateBuilder.TodayAt
-                        //        (UserSettings.Default.ScheduleStartTime.Hours,
-                        //                UserSettings.Default.ScheduleStartTime.Minutes,
-                        //                        UserSettings.Default.ScheduleStartTime.Seconds))
-                        //        .WithSimpleSchedule(builder => builder
-                        //            .WithIntervalInHours(24) // Every x hours from then on. (App config)
-                        //            .RepeatForever())
-                        //        .Build())
+                        s.ScheduleQuartzJob(q =>
+                            q.WithJob(() =>
+                                JobBuilder.Create<OutlookBooking>().Build())
+                            .AddTrigger(() =>
+                                TriggerBuilder.Create()
+                                .StartNow() // Test trigger - Starts immediately.
+                                   .WithSimpleSchedule(builder => builder
+                                       .WithIntervalInHours(24) // Every x hours from then on. (App config)
+                                       .RepeatForever())
+                                   .Build())
 
-                        //.StartNow() // Test trigger - Starts immediately.
-                        //       .WithSimpleSchedule(builder => builder
-                        //           .WithIntervalInHours(24) // Every x hours from then on. (App config)
-                        //           .RepeatForever())
-                        //       .Build())
-
-                        );
-                });
+                            );
+                    });
+                }
+                else
+                {
+                    throw new System.Exception("Argument not recognised.");
+                }
 
                 x.RunAsLocalSystem()
                     .DependsOnEventLog()

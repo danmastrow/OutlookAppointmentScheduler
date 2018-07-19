@@ -12,7 +12,7 @@ namespace OutlookAppointmentScheduler {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class UserSettings : global::System.Configuration.ApplicationSettingsBase {
         
         private static UserSettings defaultInstance = ((UserSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new UserSettings())));
@@ -49,106 +49,25 @@ namespace OutlookAppointmentScheduler {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>14:30:00</string>
-  <string>15:00:00</string>
-  <string>15:30:00</string>
-</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection BookingTimesToCheck {
+        [global::System.Configuration.DefaultSettingValueAttribute("./bookings")]
+        public string BookingDirectory {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["BookingTimesToCheck"]));
+                return ((string)(this["BookingDirectory"]));
             }
             set {
-                this["BookingTimesToCheck"] = value;
+                this["BookingDirectory"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int DurationOfBookingInMinutes {
+        [global::System.Configuration.DefaultSettingValueAttribute("StartNow")]
+        public string StartType {
             get {
-                return ((int)(this["DurationOfBookingInMinutes"]));
+                return ((string)(this["StartType"]));
             }
             set {
-                this["DurationOfBookingInMinutes"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>Saturday</string>\r\n  <string>Sunday</string>\r\n</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection BookingDayBlackList {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["BookingDayBlackList"]));
-            }
-            set {
-                this["BookingDayBlackList"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#AU MELY Room Table Tennis")]
-        public string BookingLocation {
-            get {
-                return ((string)(this["BookingLocation"]));
-            }
-            set {
-                this["BookingLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
-        public int BookingDaysInFuture {
-            get {
-                return ((int)(this["BookingDaysInFuture"]));
-            }
-            set {
-                this["BookingDaysInFuture"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>Daniel Mastrowicz</string>\r\n</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection BookingRecipients {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["BookingRecipients"]));
-            }
-            set {
-                this["BookingRecipients"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TT booking.")]
-        public string BookingBodyText {
-            get {
-                return ((string)(this["BookingBodyText"]));
-            }
-            set {
-                this["BookingBodyText"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TT")]
-        public string BookingSubjectText {
-            get {
-                return ((string)(this["BookingSubjectText"]));
-            }
-            set {
-                this["BookingSubjectText"] = value;
+                this["StartType"] = value;
             }
         }
     }

@@ -8,41 +8,11 @@
     <Setting Name="ScheduleIntervalInHours" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">24</Value>
     </Setting>
-    <Setting Name="BookingTimesToCheck" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;14:30:00&lt;/string&gt;
-  &lt;string&gt;15:00:00&lt;/string&gt;
-  &lt;string&gt;15:30:00&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
+    <Setting Name="BookingDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">./bookings</Value>
     </Setting>
-    <Setting Name="DurationOfBookingInMinutes" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">30</Value>
-    </Setting>
-    <Setting Name="BookingDayBlackList" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;Saturday&lt;/string&gt;
-  &lt;string&gt;Sunday&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
-    </Setting>
-    <Setting Name="BookingLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">#AU MELY Room Table Tennis</Value>
-    </Setting>
-    <Setting Name="BookingDaysInFuture" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">7</Value>
-    </Setting>
-    <Setting Name="BookingRecipients" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;Daniel Mastrowicz&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
-    </Setting>
-    <Setting Name="BookingBodyText" Type="System.String" Scope="User">
-      <Value Profile="(Default)">TT booking.</Value>
-    </Setting>
-    <Setting Name="BookingSubjectText" Type="System.String" Scope="User">
-      <Value Profile="(Default)">TT</Value>
+    <Setting Name="StartType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">StartNow</Value>
     </Setting>
   </Settings>
 </SettingsFile>

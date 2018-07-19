@@ -163,7 +163,7 @@
             // 
             // bookingListView
             // 
-            this.bookingListView.Location = new System.Drawing.Point(12, 78);
+            this.bookingListView.Location = new System.Drawing.Point(14, 78);
             this.bookingListView.Name = "bookingListView";
             this.bookingListView.Size = new System.Drawing.Size(535, 216);
             this.bookingListView.TabIndex = 14;
