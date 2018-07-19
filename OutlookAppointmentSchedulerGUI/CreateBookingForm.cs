@@ -5,7 +5,6 @@
 
     public partial class CreateBookingForm : Form
     {
-        private readonly string bookingDirectory = @"./bookings";
 
         private Form parent;
 
@@ -28,7 +27,7 @@
 
         //StringBuilder sb = new StringBuilder();
         //StringWriter sw = new StringWriter(sb);
-        //var directory = bookingDirectory;
+        //var directory = UserSettings.Default.BookingDirectory;
 
         //// Test booking object
         //IBookingData bookingData = new OutlookBookingData()

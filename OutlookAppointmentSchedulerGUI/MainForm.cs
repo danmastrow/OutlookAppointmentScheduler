@@ -3,8 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Windows.Forms;
+    using Newtonsoft.Json;
+    using OutlookAppointmentScheduler;
 
     public partial class MainForm : Form
     {
@@ -102,7 +105,7 @@
         private void PollService()
         {
             timer = new Timer();
-            timer.Interval = 2000;
+            timer.Interval = 3000;
             serviceStatusText.Text = "Polling Service...";
             serviceStatusText.Text = ServiceStatusText();
 
@@ -115,6 +118,66 @@
             // Update the status text
             serviceStatusText.Text = ServiceStatusText();
             SetButtonStatusByServiceStatus();
+            RefreshBookingDisplay();
+        }
+
+
+        private void RefreshBookingDisplay()
+        {
+            // Read every .json file in the bookings directory and update the ListView
+            var bookingData = DeserializeJsonToBookingData(UserSettings.Default.BookingDirectory);
+            PopulateListView(bookingData);
+        }
+
+        /// <summary>Deserializes every json file in a directory as BookingData.</summary>
+        /// <param name="bookingDirectory">The booking directory.</param>
+        /// <returns>BookingData</returns>
+        private IList<IBookingData> DeserializeJsonToBookingData(string bookingDirectory)
+        {
+            IList<IBookingData> result = new List<IBookingData>();
+            DirectoryInfo directoryInfo = new DirectoryInfo(bookingDirectory);
+
+            foreach (var jsonFile in directoryInfo.GetFiles("*.json"))
+            {
+                using (StreamReader file = File.OpenText(jsonFile.FullName))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        IBookingData bookingData = serializer.Deserialize<OutlookBookingData>(reader);
+                        result.Add(bookingData);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private void PopulateListView(IList<IBookingData> bookingData)
+        {
+            listView1.Items.Clear();
+
+            if (bookingData.Count == 0)
+                return;
+
+            foreach (var booking in bookingData)
+            {
+                var listViewData = FormatBookingDataAsListViewItem(booking);
+                var listItem = new ListViewItem(listViewData);
+                listView1.Items.Add(listItem);
+            }
+        }
+
+        private string[] FormatBookingDataAsListViewItem(IBookingData bookingData)
+        {
+            string[] result = new string[listView1.Columns.Count];
+            // TODO: Replace hardcoding with dynamic
+            result[0] = bookingData.Enabled.ToString();
+            result[1] = bookingData.Time.ToString();
+            result[2] = bookingData.DurationInMinutes.ToString();
+            result[3] = bookingData.Location;
+            result[4] = String.Join("; ", bookingData.Recipients);
+            return result;
         }
 
         private void SetButtonStatusByServiceStatus()

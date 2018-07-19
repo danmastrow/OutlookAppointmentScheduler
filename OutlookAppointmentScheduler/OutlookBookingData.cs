@@ -18,6 +18,11 @@
         [JsonProperty("Enabled")]
         public bool Enabled { get; set; }
 
+        /// <summary>Gets or sets the Booking type.</summary>
+        /// <value>The Booking type.</value>
+        [JsonProperty("Type")]
+        public BookingType Type { get; set; }
+
         /// <summary>Gets or sets the time.</summary>
         /// <value>The time.</value>
         [JsonProperty("Time")]
