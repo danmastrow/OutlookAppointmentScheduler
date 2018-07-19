@@ -8,6 +8,7 @@
     using System.Windows.Forms;
     using Newtonsoft.Json;
     using OutlookAppointmentScheduler;
+    using System.Reflection;
 
     public partial class MainForm : Form
     {
@@ -27,7 +28,26 @@
             InitializeComponent();
             serviceController1.ServiceName = serviceName;
             serviceController1.MachineName = Environment.MachineName;
+            InitializeBookingListView();
             PollService();
+        }
+
+        private void InitializeBookingListView()
+        {
+            // Foreach enum value in BookingType add a ListView Group
+            foreach(var val in Enum.GetValues(typeof(BookingType)))
+            {
+                var group = new ListViewGroup(val.ToString());
+                bookingListView.Groups.Add(group);
+            }
+
+            // Based upon the IBookingData Public Properties, Generate Columns
+
+            foreach(var prop in typeof(IBookingData).GetProperties())
+            {
+                bookingListView.Columns.Add(prop.Name);
+            }
+
         }
 
         /// <summary>Handles the Click event of the buttonSettings control.</summary>
@@ -136,6 +156,7 @@
         {
             IList<IBookingData> result = new List<IBookingData>();
             DirectoryInfo directoryInfo = new DirectoryInfo(bookingDirectory);
+            Directory.CreateDirectory(bookingDirectory);
 
             foreach (var jsonFile in directoryInfo.GetFiles("*.json"))
             {
@@ -153,9 +174,11 @@
             return result;
         }
 
+        /// <summary>Populates the Booking ListView with all Booking.JSON files.</summary>
+        /// <param name="bookingData">The booking data.</param>
         private void PopulateListView(IList<IBookingData> bookingData)
         {
-            listView1.Items.Clear();
+            bookingListView.Items.Clear();
 
             if (bookingData.Count == 0)
                 return;
@@ -163,21 +186,22 @@
             foreach (var booking in bookingData)
             {
                 var listViewData = FormatBookingDataAsListViewItem(booking);
-                var listItem = new ListViewItem(listViewData);
-                listView1.Items.Add(listItem);
+                bookingListView.Items.Add(listViewData);
             }
         }
 
-        private string[] FormatBookingDataAsListViewItem(IBookingData bookingData)
+        /// <summary>Formats the booking data as ListView item.</summary>
+        /// <param name="bookingData">The booking data.</param>
+        /// <returns></returns>
+        private ListViewItem FormatBookingDataAsListViewItem(IBookingData bookingData)
         {
-            string[] result = new string[listView1.Columns.Count];
-            // TODO: Replace hardcoding with dynamic
-            result[0] = bookingData.Enabled.ToString();
-            result[1] = bookingData.Time.ToString();
-            result[2] = bookingData.DurationInMinutes.ToString();
-            result[3] = bookingData.Location;
-            result[4] = String.Join("; ", bookingData.Recipients);
-            return result;
+            var props = new List<string>();
+            foreach (var prop in typeof(IBookingData).GetProperties())
+            {
+                var val = prop.GetValue(bookingData).ToString();
+                props.Add(val);
+            }
+            return new ListViewItem(props.ToArray());
         }
 
         private void SetButtonStatusByServiceStatus()
@@ -289,6 +313,11 @@
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

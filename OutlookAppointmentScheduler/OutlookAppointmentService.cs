@@ -8,7 +8,6 @@
     {
         public bool Start(HostControl hostControl)
         {
-            // Read the settings
             return true;
         }
 

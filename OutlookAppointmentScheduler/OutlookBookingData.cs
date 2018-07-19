@@ -10,6 +10,10 @@
     /// <seealso cref="OutlookAppointmentScheduler.IBookingData" />
     public class OutlookBookingData : IBookingData
     {
+        /// <summary>Gets or sets the name of the booking.</summary>
+        /// <value>The Booking name.</value>
+        [JsonProperty("Name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="IBookingData" /> is enabled.
