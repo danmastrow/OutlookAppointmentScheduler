@@ -38,8 +38,6 @@
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
             var directory = UserSettings.Default.BookingDirectory;
             var blackListDays = new List<DayOfWeek>();
 
@@ -65,30 +63,12 @@
                 DayBlackList = blackListDays
             };
 
-            Directory.CreateDirectory(directory); // Interestingly enough it doesnt matter whether this already exists when attempting to create.
-            var fileName = $"{bookingData.Name.Replace(" ", "-").Trim()}{DateTime.Now.ToString(@"yyyy-MMM-dd-hh-mm-ss")}.json";
+            var createdFileName = BookingDataFileWriter.WriteBookingDataToJsonFile(directory, bookingData);
+            MessageBox.Show($"{createdFileName} Created");
 
-            var invalidFileName = string.IsNullOrEmpty(fileName) ||
-              fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
-
-            if (invalidFileName)
-            {
-                using (StreamWriter file = File.CreateText(directory + "\\" + fileName))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(file, bookingData);
-                }
-
-                MessageBox.Show($"{fileName.ToString()} Created");
-
-                this.Hide();
-                parent.RefreshData();
-                parent.Show();
-            }
-            else
-            {
-                MessageBox.Show($"{fileName.ToString()} is an invalid filename, please rename the Booking Name.");
-            }
+            this.Hide();
+            parent.RefreshData();
+            parent.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookingDataFileWriter.cs" />
     <Compile Include="CreateBookingForm.cs">
       <SubType>Form</SubType>
     </Compile>
