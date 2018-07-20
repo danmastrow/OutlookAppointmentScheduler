@@ -48,9 +48,15 @@
         {
         }
 
+        private void bookingListView_ItemActivate(object sender, EventArgs e)
+        {
+            // Open
+        }
+
         private void buttonAddBooking_Click(object sender, EventArgs e)
         {
-            if (createBookingForm == null || createBookingForm.IsDisposed) {
+            if (createBookingForm == null || createBookingForm.IsDisposed)
+            {
                 createBookingForm = new CreateBookingForm(this);
             }
             this.Hide();
@@ -75,6 +81,9 @@
 
         private void buttonRemoveBooking_Click(object sender, EventArgs e)
         {
+            // TODO: If the button has been pressed for the current selection, disallow further removes (spams search).
+            // TODO: set a boolean buttonRemovedClicked = true
+            // TODO: on the listviewindex change reset this boolean to false
             if (bookingListView.SelectedItems.Count == 0)
                 return;
 
@@ -110,7 +119,8 @@
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            if (settingsForm == null || settingsForm.IsDisposed) {
+            if (settingsForm == null || settingsForm.IsDisposed)
+            {
                 settingsForm = new SettingsForm(this);
             }
             this.Hide();
@@ -157,9 +167,9 @@
                     using (JsonTextReader reader = new JsonTextReader(file))
                     {
                         JsonSerializer serializer = new JsonSerializer();
-                        IBookingData bookingData = serializer.Deserialize<OutlookBookingData>(reader);
-                        bookingData.CreationTime = jsonFile.CreationTime;
-                        result.Add(bookingData);
+                        IBookingData booking = serializer.Deserialize<OutlookBookingData>(reader);
+                        booking.CreationTime = jsonFile.CreationTime;
+                        result.Add(booking);
                     }
                 }
             }
@@ -177,9 +187,9 @@
         }
 
         /// <summary>Formats the booking data as ListView item.</summary>
-        /// <param name="bookingData">The booking data.</param>
+        /// <param name="booking">The booking data.</param>
         /// <returns></returns>
-        private ListViewItem FormatBookingDataAsListViewItem(IBookingData bookingData)
+        private ListViewItem FormatBookingDataAsListViewItem(IBookingData booking)
         {
             var props = new List<string>();
             foreach (var prop in typeof(IBookingData).GetProperties())
@@ -187,14 +197,14 @@
                 string value = "";
                 if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(String))
                 {
-                    foreach (var collectionItem in prop.GetValue(bookingData) as IList)
+                    foreach (var collectionItem in prop.GetValue(booking) as IList)
                     {
                         value += $"{collectionItem};";
                     }
                 }
                 else
                 {
-                    value = prop.GetValue(bookingData).ToString();
+                    value = prop.GetValue(booking).ToString();
                 }
                 props.Add(value);
             }
@@ -244,6 +254,8 @@
             {
                 bookingListView.Columns.Add(prop.Name);
             }
+
+            bookingListView.ItemActivate += bookingListView_ItemActivate;
         }
 
         /// <summary>Intiializes the service.</summary>
@@ -262,18 +274,18 @@
         }
 
         /// <summary>Populates the Booking ListView with all Booking.JSON files.</summary>
-        /// <param name="bookingData">The booking data.</param>
-        private void PopulateListView(ListView listView, IList<IBookingData> bookingData)
+        /// <param name="booking">The booking data.</param>
+        private void PopulateListView(ListView listView, IList<IBookingData> booking)
         {
             bookingListView.Items.Clear();
 
-            if (bookingData.Count == 0)
+            if (booking.Count == 0)
                 return;
 
-            foreach (var booking in bookingData)
+            foreach (var book in booking)
             {
-                var listViewData = FormatBookingDataAsListViewItem(booking);
-                listViewData.Group = GetListViewGroupByHeader(listView, booking.Type.ToString());
+                var listViewData = FormatBookingDataAsListViewItem(book);
+                listViewData.Group = GetListViewGroupByHeader(listView, book.Type.ToString());
                 listView.Items.Add(listViewData);
             }
         }

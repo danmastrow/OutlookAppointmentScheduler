@@ -66,12 +66,13 @@
             };
 
             Directory.CreateDirectory(directory); // Interestingly enough it doesnt matter whether this already exists when attempting to create.
-            var fileName = $"{bookingData.Name.Replace(" ", "-").Trim()}{DateTime.Now.ToString(@"dd-MMM-yyyy")}.json";
+            var fileName = $"{bookingData.Name.Replace(" ", "-").Trim()}{DateTime.Now.ToString(@"yyyy-MMM-dd-hh-mm-ss")}.json";
 
             var invalidFileName = string.IsNullOrEmpty(fileName) ||
               fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
 
-            if (invalidFileName) {
+            if (invalidFileName)
+            {
                 using (StreamWriter file = File.CreateText(directory + "\\" + fileName))
                 {
                     JsonSerializer serializer = new JsonSerializer();
@@ -104,11 +105,18 @@
             {
                 bookingTypeInput.Items.Add(val.ToString());
             }
-            // Set default item to first.
+            // Set defaults
             bookingTypeInput.SelectedItem = bookingTypeInput.Items[0];
+            bookingTimeInput.Format = DateTimePickerFormat.Time;
+            bookingTimeInput.Value = new DateTime(2018, 1, 1) + UserSettings.Default.DefaultBookingTime;
         }
         private void labelType_Click(object sender, EventArgs e)
         {
+        }
+
+        private void bookingTimeInput_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

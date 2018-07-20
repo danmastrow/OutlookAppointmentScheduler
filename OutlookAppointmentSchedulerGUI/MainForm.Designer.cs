@@ -50,7 +50,7 @@
             this.buttonInstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonInstall.Name = "buttonInstall";
             this.buttonInstall.Size = new System.Drawing.Size(120, 30);
-            this.buttonInstall.TabIndex = 1;
+            this.buttonInstall.TabIndex = 8;
             this.buttonInstall.Text = "Install Service";
             this.buttonInstall.UseVisualStyleBackColor = true;
             this.buttonInstall.Click += new System.EventHandler(this.buttonInstall_Click);
@@ -62,7 +62,7 @@
             this.buttonUninstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonUninstall.Name = "buttonUninstall";
             this.buttonUninstall.Size = new System.Drawing.Size(120, 30);
-            this.buttonUninstall.TabIndex = 2;
+            this.buttonUninstall.TabIndex = 9;
             this.buttonUninstall.Text = "Uninstall Service";
             this.buttonUninstall.UseVisualStyleBackColor = true;
             this.buttonUninstall.Click += new System.EventHandler(this.buttonUninstall_Click);
@@ -74,7 +74,7 @@
             this.buttonStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(120, 30);
-            this.buttonStart.TabIndex = 3;
+            this.buttonStart.TabIndex = 4;
             this.buttonStart.Text = "Start Service";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
@@ -86,7 +86,7 @@
             this.buttonStop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(120, 30);
-            this.buttonStop.TabIndex = 4;
+            this.buttonStop.TabIndex = 6;
             this.buttonStop.Text = "Stop Service";
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
@@ -121,7 +121,7 @@
             this.buttonSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(59, 58);
-            this.buttonSettings.TabIndex = 8;
+            this.buttonSettings.TabIndex = 30;
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
@@ -132,7 +132,7 @@
             this.buttonRestart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonRestart.Name = "buttonRestart";
             this.buttonRestart.Size = new System.Drawing.Size(120, 30);
-            this.buttonRestart.TabIndex = 9;
+            this.buttonRestart.TabIndex = 5;
             this.buttonRestart.Text = "Restart Service";
             this.buttonRestart.UseVisualStyleBackColor = true;
             this.buttonRestart.Click += new System.EventHandler(this.buttonRestart_Click);
@@ -144,7 +144,7 @@
             this.buttonAddBooking.Location = new System.Drawing.Point(12, 300);
             this.buttonAddBooking.Name = "buttonAddBooking";
             this.buttonAddBooking.Size = new System.Drawing.Size(30, 30);
-            this.buttonAddBooking.TabIndex = 12;
+            this.buttonAddBooking.TabIndex = 1;
             this.buttonAddBooking.Text = "+";
             this.buttonAddBooking.UseVisualStyleBackColor = true;
             this.buttonAddBooking.Click += new System.EventHandler(this.buttonAddBooking_Click);
@@ -156,17 +156,18 @@
             this.buttonRemoveBooking.Location = new System.Drawing.Point(53, 300);
             this.buttonRemoveBooking.Name = "buttonRemoveBooking";
             this.buttonRemoveBooking.Size = new System.Drawing.Size(30, 30);
-            this.buttonRemoveBooking.TabIndex = 13;
+            this.buttonRemoveBooking.TabIndex = 2;
             this.buttonRemoveBooking.Text = "-";
             this.buttonRemoveBooking.UseVisualStyleBackColor = true;
             this.buttonRemoveBooking.Click += new System.EventHandler(this.buttonRemoveBooking_Click);
             // 
             // bookingListView
             // 
+            this.bookingListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.bookingListView.Location = new System.Drawing.Point(14, 78);
             this.bookingListView.Name = "bookingListView";
             this.bookingListView.Size = new System.Drawing.Size(535, 216);
-            this.bookingListView.TabIndex = 14;
+            this.bookingListView.TabIndex = 3;
             this.bookingListView.UseCompatibleStateImageBehavior = false;
             this.bookingListView.View = System.Windows.Forms.View.Details;
             this.bookingListView.SelectedIndexChanged += new System.EventHandler(this.bookingListView_SelectedIndexChanged);

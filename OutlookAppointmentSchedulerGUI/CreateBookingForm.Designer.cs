@@ -62,7 +62,7 @@
             this.bookingLocationInput.Location = new System.Drawing.Point(222, 212);
             this.bookingLocationInput.Name = "bookingLocationInput";
             this.bookingLocationInput.Size = new System.Drawing.Size(121, 25);
-            this.bookingLocationInput.TabIndex = 1;
+            this.bookingLocationInput.TabIndex = 4;
             // 
             // labelName
             // 
@@ -77,11 +77,12 @@
             // 
             this.bookingTimeInput.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.bookingTimeInput.Location = new System.Drawing.Point(222, 175);
-            this.bookingTimeInput.MaxDate = new System.DateTime(1753, 1, 2, 0, 0, 0, 0);
             this.bookingTimeInput.Name = "bookingTimeInput";
+            this.bookingTimeInput.ShowUpDown = true;
             this.bookingTimeInput.Size = new System.Drawing.Size(121, 25);
-            this.bookingTimeInput.TabIndex = 4;
+            this.bookingTimeInput.TabIndex = 3;
             this.bookingTimeInput.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.bookingTimeInput.ValueChanged += new System.EventHandler(this.bookingTimeInput_ValueChanged);
             // 
             // bookingEnabledInput
             // 
@@ -91,7 +92,7 @@
             this.bookingEnabledInput.Location = new System.Drawing.Point(222, 105);
             this.bookingEnabledInput.Name = "bookingEnabledInput";
             this.bookingEnabledInput.Size = new System.Drawing.Size(125, 21);
-            this.bookingEnabledInput.TabIndex = 6;
+            this.bookingEnabledInput.TabIndex = 1;
             this.bookingEnabledInput.Text = "Booking Enabled";
             this.bookingEnabledInput.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +102,7 @@
             this.buttonCreate.Location = new System.Drawing.Point(426, 421);
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(121, 29);
-            this.buttonCreate.TabIndex = 7;
+            this.buttonCreate.TabIndex = 11;
             this.buttonCreate.Text = "Create";
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
@@ -112,7 +113,7 @@
             this.buttonBack.Location = new System.Drawing.Point(12, 421);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(121, 29);
-            this.buttonBack.TabIndex = 8;
+            this.buttonBack.TabIndex = 0;
             this.buttonBack.Text = "Back";
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
@@ -140,7 +141,7 @@
             this.bookingDurationInput.Location = new System.Drawing.Point(222, 249);
             this.bookingDurationInput.Name = "bookingDurationInput";
             this.bookingDurationInput.Size = new System.Drawing.Size(47, 25);
-            this.bookingDurationInput.TabIndex = 11;
+            this.bookingDurationInput.TabIndex = 5;
             this.bookingDurationInput.Value = new decimal(new int[] {
             30,
             0,
@@ -153,7 +154,7 @@
             this.bookingTypeInput.Location = new System.Drawing.Point(222, 138);
             this.bookingTypeInput.Name = "bookingTypeInput";
             this.bookingTypeInput.Size = new System.Drawing.Size(121, 25);
-            this.bookingTypeInput.TabIndex = 13;
+            this.bookingTypeInput.TabIndex = 2;
             this.bookingTypeInput.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // labelType
@@ -161,7 +162,7 @@
             this.labelType.AutoSize = true;
             this.labelType.Location = new System.Drawing.Point(113, 138);
             this.labelType.Name = "labelType";
-            this.labelType.Size = new System.Drawing.Size(89, 17);
+            this.labelType.Size = new System.Drawing.Size(90, 17);
             this.labelType.TabIndex = 14;
             this.labelType.Text = "Booking Type:";
             this.labelType.Click += new System.EventHandler(this.labelType_Click);
@@ -171,7 +172,7 @@
             this.bookingNameInput.Location = new System.Drawing.Point(222, 68);
             this.bookingNameInput.Name = "bookingNameInput";
             this.bookingNameInput.Size = new System.Drawing.Size(121, 25);
-            this.bookingNameInput.TabIndex = 15;
+            this.bookingNameInput.TabIndex = 1;
             // 
             // label1
             // 
@@ -196,7 +197,7 @@
             this.bookingDaysInFutureInput.Location = new System.Drawing.Point(222, 286);
             this.bookingDaysInFutureInput.Name = "bookingDaysInFutureInput";
             this.bookingDaysInFutureInput.Size = new System.Drawing.Size(120, 25);
-            this.bookingDaysInFutureInput.TabIndex = 19;
+            this.bookingDaysInFutureInput.TabIndex = 6;
             this.bookingDaysInFutureInput.Value = new decimal(new int[] {
             7,
             0,
@@ -208,14 +209,14 @@
             this.emailSubjectInput.Location = new System.Drawing.Point(393, 68);
             this.emailSubjectInput.Name = "emailSubjectInput";
             this.emailSubjectInput.Size = new System.Drawing.Size(121, 25);
-            this.emailSubjectInput.TabIndex = 20;
+            this.emailSubjectInput.TabIndex = 8;
             // 
             // emailBodyInput
             // 
             this.emailBodyInput.Location = new System.Drawing.Point(393, 126);
             this.emailBodyInput.Name = "emailBodyInput";
             this.emailBodyInput.Size = new System.Drawing.Size(121, 74);
-            this.emailBodyInput.TabIndex = 21;
+            this.emailBodyInput.TabIndex = 9;
             this.emailBodyInput.Text = "";
             // 
             // label7
@@ -259,7 +260,7 @@
             this.emailRecipientsInput.Location = new System.Drawing.Point(393, 229);
             this.emailRecipientsInput.Name = "emailRecipientsInput";
             this.emailRecipientsInput.Size = new System.Drawing.Size(121, 119);
-            this.emailRecipientsInput.TabIndex = 26;
+            this.emailRecipientsInput.TabIndex = 10;
             this.emailRecipientsInput.Text = "";
             // 
             // bookingDayBlackListInput
@@ -278,7 +279,7 @@
             this.bookingDayBlackListInput.Name = "bookingDayBlackListInput";
             this.bookingDayBlackListInput.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.bookingDayBlackListInput.Size = new System.Drawing.Size(120, 72);
-            this.bookingDayBlackListInput.TabIndex = 28;
+            this.bookingDayBlackListInput.TabIndex = 7;
             // 
             // label9
             // 
