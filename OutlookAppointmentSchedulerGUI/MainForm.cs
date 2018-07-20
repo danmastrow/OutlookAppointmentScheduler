@@ -67,7 +67,7 @@
                 var fileName = bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text;
                 var booking = bookingData.Where(x => x.FileName == fileName).FirstOrDefault();
 
-                this.modifyBookingForm = new ModifyBookingForm(booking);
+                this.modifyBookingForm = new ModifyBookingForm(this, booking);
                 this.Hide();
                 modifyBookingForm.Show();
             }

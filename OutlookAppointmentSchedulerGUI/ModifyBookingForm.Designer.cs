@@ -87,7 +87,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(408, 188);
+            this.label6.Location = new System.Drawing.Point(395, 191);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 17);
             this.label6.TabIndex = 52;
@@ -97,7 +97,7 @@
             // 
             this.emailRecipientsInput.Location = new System.Drawing.Point(396, 211);
             this.emailRecipientsInput.Name = "emailRecipientsInput";
-            this.emailRecipientsInput.Size = new System.Drawing.Size(121, 119);
+            this.emailRecipientsInput.Size = new System.Drawing.Size(154, 166);
             this.emailRecipientsInput.TabIndex = 43;
             this.emailRecipientsInput.Text = "";
             // 
@@ -113,7 +113,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(408, 30);
+            this.label8.Location = new System.Drawing.Point(395, 30);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 17);
             this.label8.TabIndex = 50;
@@ -122,7 +122,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(408, 85);
+            this.label7.Location = new System.Drawing.Point(395, 87);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 17);
             this.label7.TabIndex = 49;
@@ -132,7 +132,7 @@
             // 
             this.emailBodyInput.Location = new System.Drawing.Point(396, 108);
             this.emailBodyInput.Name = "emailBodyInput";
-            this.emailBodyInput.Size = new System.Drawing.Size(121, 74);
+            this.emailBodyInput.Size = new System.Drawing.Size(154, 74);
             this.emailBodyInput.TabIndex = 41;
             this.emailBodyInput.Text = "";
             // 
@@ -140,7 +140,7 @@
             // 
             this.emailSubjectInput.Location = new System.Drawing.Point(396, 50);
             this.emailSubjectInput.Name = "emailSubjectInput";
-            this.emailSubjectInput.Size = new System.Drawing.Size(121, 25);
+            this.emailSubjectInput.Size = new System.Drawing.Size(151, 25);
             this.emailSubjectInput.TabIndex = 40;
             // 
             // bookingDaysInFutureInput
@@ -236,6 +236,7 @@
             this.buttonCancel.TabIndex = 30;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonSave
             // 

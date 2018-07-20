@@ -208,21 +208,21 @@
             // 
             this.emailSubjectInput.Location = new System.Drawing.Point(393, 68);
             this.emailSubjectInput.Name = "emailSubjectInput";
-            this.emailSubjectInput.Size = new System.Drawing.Size(121, 25);
+            this.emailSubjectInput.Size = new System.Drawing.Size(154, 25);
             this.emailSubjectInput.TabIndex = 8;
             // 
             // emailBodyInput
             // 
             this.emailBodyInput.Location = new System.Drawing.Point(393, 126);
             this.emailBodyInput.Name = "emailBodyInput";
-            this.emailBodyInput.Size = new System.Drawing.Size(121, 74);
+            this.emailBodyInput.Size = new System.Drawing.Size(154, 74);
             this.emailBodyInput.TabIndex = 9;
             this.emailBodyInput.Text = "";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(405, 103);
+            this.label7.Location = new System.Drawing.Point(400, 105);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 17);
             this.label7.TabIndex = 22;
@@ -231,7 +231,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(405, 48);
+            this.label8.Location = new System.Drawing.Point(400, 48);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 17);
             this.label8.TabIndex = 23;
@@ -249,7 +249,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(405, 206);
+            this.label6.Location = new System.Drawing.Point(400, 209);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 17);
             this.label6.TabIndex = 27;
@@ -259,7 +259,7 @@
             // 
             this.emailRecipientsInput.Location = new System.Drawing.Point(393, 229);
             this.emailRecipientsInput.Name = "emailRecipientsInput";
-            this.emailRecipientsInput.Size = new System.Drawing.Size(121, 119);
+            this.emailRecipientsInput.Size = new System.Drawing.Size(154, 166);
             this.emailRecipientsInput.TabIndex = 10;
             this.emailRecipientsInput.Text = "";
             // 
