@@ -9,11 +9,12 @@
     using System.IO;
     using System.Linq;
     using System.Windows.Forms;
+    using static System.Windows.Forms.ListViewItem;
 
     public partial class MainForm : Form
     {
-        private const string fileSearchPattern = "*.json";
-        private const string serviceNotInstalledMessage = "Service not installed.";
+        private readonly string fileSearchPattern = "*.json";
+        private readonly string serviceNotInstalledMessage = "Service not installed.";
         private readonly string executableName = "OutlookAppointmentScheduler";
         private readonly string installArguments = "install --autostart";
         private readonly int pollInterval = 3000;
@@ -21,7 +22,9 @@
         private readonly string uninstallArguments = "uninstall";
 
         private IList<IBookingData> bookingData;
-        private Form settingsForm, createBookingForm;
+        private SettingsForm settingsForm;
+        private CreateBookingForm createBookingForm;
+        private ModifyBookingForm modifyBookingForm;
         private Timer timer;
 
         /// <summary>
@@ -44,15 +47,49 @@
             RefreshBookingDisplay();
         }
 
-        private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
+        /// <summary>
+        /// Handles the ItemActivate event of the bookingListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void bookingListView_ItemActivate(object sender, EventArgs e)
         {
-            // Open
+            try
+            {
+                if (bookingListView.SelectedItems.Count >= 2 || bookingListView.SelectedItems.Count == 0)
+                    return;
+
+                if (modifyBookingForm != null)
+                    modifyBookingForm.Dispose();
+
+                // Get first selected item where filename is the last header.
+                // TODO: Refactor this, if the FileName is no longer the last Public Property then this will fail.
+                var fileName = bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text;
+                var booking = bookingData.Where(x => x.FileName == fileName).FirstOrDefault();
+
+                this.modifyBookingForm = new ModifyBookingForm(booking);
+                this.Hide();
+                modifyBookingForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("File could not be opened.");
+            }
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the bookingListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>Handles the Click event of the buttonAddBooking control.</summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void buttonAddBooking_Click(object sender, EventArgs e)
         {
             if (createBookingForm == null || createBookingForm.IsDisposed)
@@ -87,15 +124,12 @@
             if (bookingListView.SelectedItems.Count == 0)
                 return;
 
-            // The way I've done this to compare the View to the actual JSON files is storing the CreationTime in the Model
-            // The reason I wanted this is that I didnt want to be forced to store the file name
-            // Also I might use the Creation Time in the future for display.
             var directoryInfo = new DirectoryInfo(UserSettings.Default.BookingDirectory);
             foreach (var jsonFile in directoryInfo.GetFiles(fileSearchPattern))
             {
                 foreach (var booking in this.bookingData)
                 {
-                    if (jsonFile.CreationTime == booking.CreationTime)
+                    if (jsonFile.FullName == booking.FileName)
                     {
                         jsonFile.Delete();
                     }
@@ -168,7 +202,7 @@
                     {
                         JsonSerializer serializer = new JsonSerializer();
                         IBookingData booking = serializer.Deserialize<OutlookBookingData>(reader);
-                        booking.CreationTime = jsonFile.CreationTime;
+                        booking.FileName = jsonFile.FullName;
                         result.Add(booking);
                     }
                 }

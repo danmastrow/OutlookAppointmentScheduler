@@ -81,9 +81,9 @@
                     using (JsonTextReader reader = new JsonTextReader(file))
                     {
                         JsonSerializer serializer = new JsonSerializer();
-                        IBookingData bookingData = serializer.Deserialize<OutlookBookingData>(reader);
-                        bookingData.CreationTime = jsonFile.CreationTime;
-                        result.Add(bookingData);
+                        IBookingData booking = serializer.Deserialize<OutlookBookingData>(reader);
+                        booking.FileName = jsonFile.FullName;
+                        result.Add(booking);
                     }
                 }
             }
