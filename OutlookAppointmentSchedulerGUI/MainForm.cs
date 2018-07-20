@@ -129,12 +129,15 @@
             {
                 foreach (var booking in this.bookingData)
                 {
-                    if (jsonFile.FullName == booking.FileName)
+                    if (jsonFile.FullName == bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text)
                     {
+                        // Booking exists, find it by headername
                         jsonFile.Delete();
+
                     }
                 }
             }
+            RefreshBookingDisplay();
         }
 
         /// <summary>Handles the Click event of the buttonRestart control.</summary>
