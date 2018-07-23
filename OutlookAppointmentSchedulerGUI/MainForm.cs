@@ -33,7 +33,7 @@
         public MainForm()
         {
             InitializeComponent();
-            IntiializeService();
+            InitializeService();
             InitializeBookingListView();
             RefreshData();
             InitalizeTimer();
@@ -298,11 +298,10 @@
 
             bookingListView.ItemActivate += bookingListView_ItemActivate;
             //bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            //bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         /// <summary>Intiializes the service.</summary>
-        private void IntiializeService()
+        private void InitializeService()
         {
             serviceController1.ServiceName = serviceName;
             serviceController1.MachineName = Environment.MachineName;
@@ -339,8 +338,7 @@
             // Read every .json file in the bookings directory and update the ListView
             this.bookingData = DeserializeJsonToBookingData(UserSettings.Default.BookingDirectory);
             PopulateListView(bookingListView, bookingData);
-
-
+            bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
         /// <summary>Services the status text.</summary>
         /// <returns></returns>

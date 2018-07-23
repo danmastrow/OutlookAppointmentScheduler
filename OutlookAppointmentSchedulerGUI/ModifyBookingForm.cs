@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Windows.Forms;
     using OutlookAppointmentScheduler;
@@ -11,6 +13,7 @@
     {
         private MainForm parent;
         private IBookingData oldBookingData;
+        private IList<DateTimePicker> bookingTimes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModifyBookingForm" /> class.
@@ -40,6 +43,7 @@
             {
                 bookingTypeInput.Items.Add(val.ToString());
             }
+
         }
 
         /// <summary>Prefills the user inputs from the BookingData.</summary>
@@ -47,24 +51,50 @@
         private void PrefillUserInputs(IBookingData bookingData)
         {
             bookingNameInput.Text = bookingData.Name;
-            bookingEnabledInput.Enabled = bookingData.Enabled;
+            bookingEnabledInput.Checked = bookingData.Enabled;
             bookingTypeInput.SelectedItem = bookingData.Type.ToString();
-            bookingTimeInput.Value = new DateTime(2018, 1, 1) + bookingData.Times[0]; // TODO: Replace this with foreach loop over each time.
+            bookingTimeInputPrimary.Value = new DateTime(2018, 1, 1) + bookingData.Times[0]; // TODO: Replace this with foreach loop over each time.
             bookingLocationInput.Text = bookingData.Location;
             bookingDurationInput.Value = bookingData.DurationInMinutes;
             bookingDaysInFutureInput.Value = bookingData.NumberOfDaysInFuture;
             emailSubjectInput.Text = bookingData.Subject;
             emailBodyInput.Text = bookingData.Body;
             emailRecipientsInput.Text = string.Join("\r\n", bookingData.Recipients);
+            bookingTimes = new List<DateTimePicker>()
+            {
+                bookingTimeInputPrimary
+            };
 
-            // TODO: Refactor this as Linq.
             foreach (var day in bookingData.DayBlackList)
             {
                 var index = bookingDayBlackListInput.Items.IndexOf(day.ToString());
 
                 bookingDayBlackListInput.SetSelected(index, true);
             }
-            AcceptButton = buttonSave;
+
+
+            if (bookingData.Times.Count >= 2)
+            {
+                for (int i = 1; i < bookingData.Times.Count; i++)
+                {
+                    var bookingTimePickerOffset = new Size(0, 30);
+                    var dateTimePickerPosition = Point.Add(bookingTimes.Last().Location, bookingTimePickerOffset);
+                    var bookingTimePicker = new DateTimePicker();
+
+                    bookingTimePicker.Location = dateTimePickerPosition;
+                    bookingTimePicker.Size = bookingTimes.Last().Size;
+                    bookingTimePicker.Format = DateTimePickerFormat.Time;
+                    bookingTimePicker.Value = new DateTime(2018, 1, 1) + bookingData.Times[i];
+                    bookingTimePicker.ShowUpDown = true;
+                    bookingTimes.Add(bookingTimePicker);
+                    this.Controls.Add(bookingTimePicker);
+                    this.buttonRemoveBookingTime.Show();
+                }
+            }
+            else
+            {
+                buttonRemoveBookingTime.Hide();
+            }
         }
 
         private void ModifyBookingForm_Load(object sender, EventArgs e) { }
@@ -93,9 +123,9 @@
             IBookingData bookingData = new OutlookBookingData()
             {
                 Name = bookingNameInput.Text,
-                Enabled = bookingEnabledInput.Enabled,
+                Enabled = bookingEnabledInput.Checked,
                 Type = (BookingType)Enum.Parse(typeof(BookingType), bookingTypeInput.Text),
-                Times = new List<TimeSpan>() { bookingTimeInput.Value.TimeOfDay },
+                Times = bookingTimes.Select(t => t.Value.TimeOfDay).ToList(),
                 Location = bookingLocationInput.Text,
                 DurationInMinutes = (int)bookingDurationInput.Value,
                 NumberOfDaysInFuture = (int)bookingDaysInFutureInput.Value,
@@ -111,6 +141,35 @@
             this.Hide();
             parent.RefreshData();
             parent.Show();
+        }
+
+        private void buttonAddBookingTime_Click(object sender, EventArgs e)
+        {
+            // If user wants to add more times to the booking.
+            // Create DatetimePicker 30px below the next item in the bookingTimes
+            var bookingTimePickerOffset = new Size(0, 30);
+            var dateTimePickerPosition = Point.Add(bookingTimes.Last().Location, bookingTimePickerOffset);
+            var bookingTimePicker = new DateTimePicker();
+
+            bookingTimePicker.Location = dateTimePickerPosition;
+            bookingTimePicker.Size = bookingTimes.Last().Size;
+            bookingTimePicker.Format = DateTimePickerFormat.Time;
+            bookingTimePicker.Value = new DateTime(2018, 1, 1) + UserSettings.Default.DefaultBookingTime;
+            bookingTimePicker.ShowUpDown = true;
+            bookingTimes.Add(bookingTimePicker);
+            this.Controls.Add(bookingTimePicker);
+            this.buttonRemoveBookingTime.Show();
+        }
+
+        private void buttonRemoveBookingTime_Click(object sender, EventArgs e)
+        {
+            if (bookingTimes.Count >= 2)
+            {
+                this.Controls.Remove(bookingTimes.Last());
+                this.bookingTimes.Remove(bookingTimes.Last());
+                if (bookingTimes.Count == 1)
+                    this.buttonRemoveBookingTime.Hide();
+            }
         }
     }
 }

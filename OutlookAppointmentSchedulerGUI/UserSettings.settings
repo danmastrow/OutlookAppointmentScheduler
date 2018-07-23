@@ -9,7 +9,7 @@
       <Value Profile="(Default)">15:00:00</Value>
     </Setting>
     <Setting Name="DefaultBookingLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">#AU MELY Room Table Tennis</Value>
     </Setting>
   </Settings>
 </SettingsFile>

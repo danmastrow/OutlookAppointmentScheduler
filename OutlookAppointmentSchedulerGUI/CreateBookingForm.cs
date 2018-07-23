@@ -7,10 +7,13 @@
     using System.IO;
     using System.Text;
     using System.Windows.Forms;
+    using System.Linq;
+    using System.Drawing;
 
     public partial class CreateBookingForm : Form
     {
         private MainForm parent;
+        private List<DateTimePicker> bookingTimes;
 
         public CreateBookingForm()
         {
@@ -40,7 +43,9 @@
         {
             var directory = UserSettings.Default.BookingDirectory;
             var blackListDays = new List<DayOfWeek>();
+            var allBookingTimes = new List<TimeSpan>();
             var fullFileName = BookingDataFileWriter.CreateBookingFileName(directory, bookingNameInput.Text);
+
             // Map all Black Listed Days from the List input.
             foreach (var day in bookingDayBlackListInput.SelectedItems)
             {
@@ -51,9 +56,9 @@
             IBookingData bookingData = new OutlookBookingData()
             {
                 Name = bookingNameInput.Text,
-                Enabled = bookingEnabledInput.Enabled,
+                Enabled = bookingEnabledInput.Checked,
                 Type = (BookingType)Enum.Parse(typeof(BookingType), bookingTypeInput.Text),
-                Times = new List<TimeSpan>() { bookingTimeInput.Value.TimeOfDay }, // TODO: Replace this with multiple time options
+                Times = bookingTimes.Select(t => t.Value.TimeOfDay).ToList(),
                 Location = bookingLocationInput.Text,
                 DurationInMinutes = (int)bookingDurationInput.Value,
                 NumberOfDaysInFuture = (int)bookingDaysInFutureInput.Value,
@@ -90,15 +95,56 @@
 
             // Set defaults
             bookingTypeInput.SelectedItem = bookingTypeInput.Items[0];
-            bookingTimeInput.Format = DateTimePickerFormat.Time;
-            bookingTimeInput.Value = new DateTime(2018, 1, 1) + UserSettings.Default.DefaultBookingTime;
-            AcceptButton = buttonCreate;
+            bookingTimeInputPrimary.Format = DateTimePickerFormat.Time;
+            bookingTimeInputPrimary.Value = new DateTime(2018, 1, 1) + UserSettings.Default.DefaultBookingTime;
+            bookingLocationInput.Text = UserSettings.Default.DefaultBookingLocation;
+            // Add the intial Booking Time
+            bookingTimes = new List<DateTimePicker>()
+            {
+                bookingTimeInputPrimary
+            };
+
+            //AcceptButton = buttonCreate;
         }
         private void labelType_Click(object sender, EventArgs e)
         {
         }
 
         private void bookingTimeInput_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAddBookingTime_Click(object sender, EventArgs e)
+        {
+            // If user wants to add more times to the booking.
+            // Create DatetimePicker 30px below the next item in the bookingTimes
+            var bookingTimePickerOffset = new Size(0, 30);
+            var dateTimePickerPosition = Point.Add(bookingTimes.Last().Location, bookingTimePickerOffset);
+            var bookingTimePicker = new DateTimePicker();
+
+            bookingTimePicker.Location = dateTimePickerPosition;
+            bookingTimePicker.Size = bookingTimes.Last().Size;
+            bookingTimePicker.Format = DateTimePickerFormat.Time;
+            bookingTimePicker.Value = new DateTime(2018, 1, 1) + UserSettings.Default.DefaultBookingTime;
+            bookingTimePicker.ShowUpDown = true;
+            bookingTimes.Add(bookingTimePicker);
+            this.Controls.Add(bookingTimePicker);
+            this.buttonRemoveBookingTime.Show();
+        }
+
+        private void buttonRemoveBookingTime_Click(object sender, EventArgs e)
+        {
+            if (bookingTimes.Count >= 2)
+            {
+                this.Controls.Remove(bookingTimes.Last());
+                this.bookingTimes.Remove(bookingTimes.Last());
+                if (bookingTimes.Count == 1)
+                    this.buttonRemoveBookingTime.Hide();
+            }
+        }
+
+        private void bookingTimeInputPrimary_ValueChanged(object sender, EventArgs e)
         {
 
         }
