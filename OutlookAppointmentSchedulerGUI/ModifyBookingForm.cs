@@ -49,7 +49,7 @@
             bookingNameInput.Text = bookingData.Name;
             bookingEnabledInput.Enabled = bookingData.Enabled;
             bookingTypeInput.SelectedItem = bookingData.Type.ToString();
-            bookingTimeInput.Value = new DateTime(2018, 1, 1) + bookingData.Time;
+            bookingTimeInput.Value = new DateTime(2018, 1, 1) + bookingData.Times[0]; // TODO: Replace this with foreach loop over each time.
             bookingLocationInput.Text = bookingData.Location;
             bookingDurationInput.Value = bookingData.DurationInMinutes;
             bookingDaysInFutureInput.Value = bookingData.NumberOfDaysInFuture;
@@ -64,10 +64,14 @@
 
                 bookingDayBlackListInput.SetSelected(index, true);
             }
+            AcceptButton = buttonSave;
         }
 
         private void ModifyBookingForm_Load(object sender, EventArgs e) { }
-
+        protected override void OnClosed(EventArgs e)
+        {
+            parent.Show();
+        }
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -91,7 +95,7 @@
                 Name = bookingNameInput.Text,
                 Enabled = bookingEnabledInput.Enabled,
                 Type = (BookingType)Enum.Parse(typeof(BookingType), bookingTypeInput.Text),
-                Time = bookingTimeInput.Value.TimeOfDay,
+                Times = new List<TimeSpan>() { bookingTimeInput.Value.TimeOfDay },
                 Location = bookingLocationInput.Text,
                 DurationInMinutes = (int)bookingDurationInput.Value,
                 NumberOfDaysInFuture = (int)bookingDaysInFutureInput.Value,

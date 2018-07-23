@@ -23,7 +23,7 @@
 
                         s.ScheduleQuartzJob(q =>
                             q.WithJob(() =>
-                                JobBuilder.Create<OutlookBooking>().Build())
+                                JobBuilder.Create<FileOutlookBooking>().Build())
                             .AddTrigger(() =>
                                 TriggerBuilder.Create()
                             .StartAt(DateBuilder.TodayAt
@@ -46,7 +46,7 @@
 
                         s.ScheduleQuartzJob(q =>
                             q.WithJob(() =>
-                                JobBuilder.Create<OutlookBooking>().Build())
+                                JobBuilder.Create<FileOutlookBooking>().Build())
                             .AddTrigger(() =>
                                 TriggerBuilder.Create()
                                 .StartNow() // Test trigger - Starts immediately.
@@ -60,7 +60,7 @@
                 }
                 else
                 {
-                    throw new System.Exception("Argument not recognised.");
+                    throw new System.Exception("Invalid UserSettings.StartType: Argument not recognised.");
                 }
 
                 x.RunAsLocalSystem()

@@ -129,11 +129,10 @@
             {
                 foreach (var booking in this.bookingData)
                 {
+                    // Find booking by fullname.
                     if (jsonFile.FullName == bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text)
                     {
-                        // Booking exists, find it by headername
                         jsonFile.Delete();
-
                     }
                 }
             }
@@ -286,13 +285,20 @@
                 bookingListView.Groups.Add(group);
             }
 
-            // Based upon the IBookingData Public Properties, Generate Columns
+            // Based upon the IBookingData Public Properties
+            // Generate listviewdata, that does not have the HideFromListView attribute.
             foreach (var prop in typeof(IBookingData).GetProperties())
             {
-                bookingListView.Columns.Add(prop.Name);
+                if (!prop.GetCustomAttributes(false)
+                    .Any(a => a.GetType() == typeof(HideFromListView)))
+                {
+                    bookingListView.Columns.Add(prop.Name);
+                }
             }
 
             bookingListView.ItemActivate += bookingListView_ItemActivate;
+            //bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            //bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         /// <summary>Intiializes the service.</summary>
@@ -333,6 +339,8 @@
             // Read every .json file in the bookings directory and update the ListView
             this.bookingData = DeserializeJsonToBookingData(UserSettings.Default.BookingDirectory);
             PopulateListView(bookingListView, bookingData);
+
+
         }
         /// <summary>Services the status text.</summary>
         /// <returns></returns>
@@ -424,7 +432,7 @@
             }
         }
 
-        /// <summary>Starts the service.</summary>
+        /// <summary>Starts the service.</summary>f
         private void StartService()
         {
             serviceController1.Refresh();

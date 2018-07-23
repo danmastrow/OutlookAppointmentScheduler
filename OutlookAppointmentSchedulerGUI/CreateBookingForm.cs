@@ -40,7 +40,7 @@
         {
             var directory = UserSettings.Default.BookingDirectory;
             var blackListDays = new List<DayOfWeek>();
-
+            var fullFileName = BookingDataFileWriter.CreateBookingFileName(directory, bookingNameInput.Text);
             // Map all Black Listed Days from the List input.
             foreach (var day in bookingDayBlackListInput.SelectedItems)
             {
@@ -53,18 +53,20 @@
                 Name = bookingNameInput.Text,
                 Enabled = bookingEnabledInput.Enabled,
                 Type = (BookingType)Enum.Parse(typeof(BookingType), bookingTypeInput.Text),
-                Time = bookingTimeInput.Value.TimeOfDay,
+                Times = new List<TimeSpan>() { bookingTimeInput.Value.TimeOfDay }, // TODO: Replace this with multiple time options
                 Location = bookingLocationInput.Text,
                 DurationInMinutes = (int)bookingDurationInput.Value,
                 NumberOfDaysInFuture = (int)bookingDaysInFutureInput.Value,
                 Body = emailBodyInput.Text,
                 Subject = emailSubjectInput.Text,
                 Recipients = emailRecipientsInput.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None),
-                DayBlackList = blackListDays
+                DayBlackList = blackListDays,
+                FileRead = false,
+                FileName = fullFileName
             };
 
-            var createdFileName = BookingDataFileWriter.WriteBookingDataToJsonFile(directory, bookingData);
-            MessageBox.Show($"{createdFileName} Created");
+            var createdFileName = BookingDataFileWriter.WriteBookingDataToJsonFile(directory, bookingData, fullFileName);
+            MessageBox.Show($"{fullFileName} Created");
 
             this.Hide();
             parent.RefreshData();
@@ -85,10 +87,12 @@
             {
                 bookingTypeInput.Items.Add(val.ToString());
             }
+
             // Set defaults
             bookingTypeInput.SelectedItem = bookingTypeInput.Items[0];
             bookingTimeInput.Format = DateTimePickerFormat.Time;
             bookingTimeInput.Value = new DateTime(2018, 1, 1) + UserSettings.Default.DefaultBookingTime;
+            AcceptButton = buttonCreate;
         }
         private void labelType_Click(object sender, EventArgs e)
         {

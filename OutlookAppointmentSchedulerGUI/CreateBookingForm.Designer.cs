@@ -123,9 +123,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(108, 175);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 17);
+            this.label3.Size = new System.Drawing.Size(96, 17);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Booking Time:";
+            this.label3.Text = "Booking Times:";
             // 
             // label4
             // 

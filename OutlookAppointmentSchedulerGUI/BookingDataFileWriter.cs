@@ -1,10 +1,8 @@
 ﻿namespace OutlookAppointmentSchedulerGUI
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using System.Windows.Forms;
     using Newtonsoft.Json;
     using OutlookAppointmentScheduler;
 
@@ -21,7 +19,7 @@
             StringWriter sw = new StringWriter(sb);
 
             Directory.CreateDirectory(directory); // Interestingly enough it doesnt matter whether this already exists when attempting to create.
-            fullFileName = fullFileName ?? directory + "\\" + $"{bookingData.Name.Replace(" ", "-").Trim()}{DateTime.Now.ToString(@"yyyy-MMM-dd-hh-mm-ss")}.json";
+            fullFileName = fullFileName ?? CreateBookingFileName(directory, bookingData.Name);
 
             //var invalidFileName = string.IsNullOrEmpty(fullFileName) ||
             //  fullFileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
@@ -34,6 +32,11 @@
             }
 
             return fullFileName;
+        }
+
+        public static string CreateBookingFileName(string directory, string bookingName)
+        {
+            return directory + "\\" + $"{bookingName.Replace(" ", "-").Trim()}{DateTime.Now.ToString(@"yyyy-MMM-dd-hh-mm-ss")}.json";
         }
     }
 }

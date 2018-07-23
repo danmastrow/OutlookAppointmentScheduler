@@ -27,10 +27,10 @@
         [JsonProperty("Type")]
         public BookingType Type { get; set; }
 
-        /// <summary>Gets or sets the time.</summary>
-        /// <value>The time.</value>
-        [JsonProperty("Time")]
-        public TimeSpan Time { get; set; }
+        /// <summary>Gets or sets the times.</summary>
+        /// <value>The booking times.</value>
+        [JsonProperty("Times")]
+        public IList<TimeSpan> Times { get; set; }
 
         /// <summary>Gets or sets the location.</summary>
         /// <value>The location.</value>
@@ -68,8 +68,18 @@
         public IList<DayOfWeek> DayBlackList { get; set; }
 
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the booking file has been read by the service.
+        /// </summary>
+        /// <value><c>true</c> if [file read]; otherwise, <c>false</c>.</value>
+        [JsonProperty("FileRead")]
+        [HideFromListView]
+        public bool FileRead { get; set; }
+
         /// <summary>Gets or sets the name of the file.</summary>
         /// <value>The name of the file.</value>
+        [JsonProperty("FileName")]
+        [HideFromListView]
         public string FileName { get; set; }
 
         /// <summary>
@@ -78,7 +88,7 @@
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return $"{Time} at {Location} for {DurationInMinutes} minutes in {NumberOfDaysInFuture} days";
+            return $"Booking for {DurationInMinutes} minutes at {Location} for the Recipients: {{{String.Join(",", Recipients)}}}, at one of these times: {String.Join(",", Times)}";
         }
     }
 }

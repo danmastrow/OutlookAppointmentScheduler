@@ -45,6 +45,7 @@
             // 
             // buttonInstall
             // 
+            this.buttonInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonInstall.Location = new System.Drawing.Point(427, 389);
             this.buttonInstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -57,6 +58,7 @@
             // 
             // buttonUninstall
             // 
+            this.buttonUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUninstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUninstall.Location = new System.Drawing.Point(427, 427);
             this.buttonUninstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -69,6 +71,7 @@
             // 
             // buttonStart
             // 
+            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStart.Location = new System.Drawing.Point(14, 351);
             this.buttonStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -81,6 +84,7 @@
             // 
             // buttonStop
             // 
+            this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStop.Location = new System.Drawing.Point(14, 427);
             this.buttonStop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -104,6 +108,7 @@
             // 
             // buttonLaunch
             // 
+            this.buttonLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLaunch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLaunch.Location = new System.Drawing.Point(427, 351);
             this.buttonLaunch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -116,6 +121,7 @@
             // 
             // buttonSettings
             // 
+            this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSettings.Image = global::OutlookAppointmentSchedulerGUI.Properties.Resources.gearIcon;
             this.buttonSettings.Location = new System.Drawing.Point(488, 13);
             this.buttonSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -127,6 +133,7 @@
             // 
             // buttonRestart
             // 
+            this.buttonRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRestart.Location = new System.Drawing.Point(14, 389);
             this.buttonRestart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -139,6 +146,7 @@
             // 
             // buttonAddBooking
             // 
+            this.buttonAddBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddBooking.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.buttonAddBooking.Location = new System.Drawing.Point(12, 300);
@@ -151,6 +159,7 @@
             // 
             // buttonRemoveBooking
             // 
+            this.buttonRemoveBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemoveBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRemoveBooking.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.buttonRemoveBooking.Location = new System.Drawing.Point(53, 300);
@@ -164,6 +173,11 @@
             // bookingListView
             // 
             this.bookingListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.bookingListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bookingListView.FullRowSelect = true;
+            this.bookingListView.GridLines = true;
             this.bookingListView.Location = new System.Drawing.Point(14, 78);
             this.bookingListView.Name = "bookingListView";
             this.bookingListView.Size = new System.Drawing.Size(535, 216);

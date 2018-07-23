@@ -35,8 +35,8 @@ http://docs.topshelf-project.com/en/latest/overview/commandline.html
 - [x] Create booking and send based upon config information.
 - [x] Attach a Windows Form project to the solution that manages the service and monitors the service status.
 - [x] Write Appointment Bookings to JSON files and read from that in the Service.
-- [ ] 🔴Implement Serilog logging and metrics in the service.
-- [ ] Resize the MainForm GUI to the size of the ListView on load.
+- [ ] Implement Serilog logging and metrics in the service.
+- [ ] 🔴Resize the MainForm GUI to the size of the ListView on load.
 - [ ] Provide feedback on common error messages (Admin Issues, FileNotFound, ServiceNotFound)
 - [ ] Add Windows Form Functionality (Settings Page) that reads/writes to the config file for easy configurability.
 - [ ] Read logs of service from GUI and display them.
