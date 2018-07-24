@@ -239,7 +239,7 @@
                 {
                     foreach (var collectionItem in prop.GetValue(booking) as IList)
                     {
-                        value += $"{collectionItem};";
+                        value += $"{collectionItem} ";
                     }
                 }
                 else
