@@ -12,7 +12,7 @@
       <Value Profile="(Default)">./bookings</Value>
     </Setting>
     <Setting Name="StartType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">StartNow</Value>
+      <Value Profile="(Default)">TodayAt</Value>
     </Setting>
   </Settings>
 </SettingsFile>
