@@ -75,7 +75,7 @@
     <Compile Include="IBooking.cs" />
     <Compile Include="IBookingData.cs" />
     <Compile Include="OutlookAppointmentService.cs" />
-    <Compile Include="FileOutlookBooking.cs" />
+    <Compile Include="OutlookBooking.cs" />
     <Compile Include="OutlookBookingData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

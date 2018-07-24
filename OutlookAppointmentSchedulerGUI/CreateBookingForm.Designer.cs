@@ -119,6 +119,7 @@
             this.emailRecipientsInput.Size = new System.Drawing.Size(262, 189);
             this.emailRecipientsInput.TabIndex = 71;
             this.emailRecipientsInput.Text = "";
+            this.emailRecipientsInput.TextChanged += new System.EventHandler(this.emailRecipientsInput_TextChanged);
             // 
             // label2
             // 
@@ -313,6 +314,7 @@
             this.bookingLocationInput.Name = "bookingLocationInput";
             this.bookingLocationInput.Size = new System.Drawing.Size(121, 25);
             this.bookingLocationInput.TabIndex = 64;
+            this.bookingLocationInput.TextChanged += new System.EventHandler(this.bookingLocationInput_TextChanged);
             // 
             // buttonCreate
             // 

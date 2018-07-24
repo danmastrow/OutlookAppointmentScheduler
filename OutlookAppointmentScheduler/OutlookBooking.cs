@@ -12,15 +12,15 @@
     /// </summary>
     /// <seealso cref="OutlookAppointmentScheduler.IBooking" />
     /// <seealso cref="Quartz.IJob" />
-    public class FileOutlookBooking : IBooking, IJob
+    public class OutlookBooking : IBooking, IJob
     {
         private IList<IBookingData> bookingData;
         private readonly string fileSearchPattern = "*.json";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileOutlookBooking"/> class.
+        /// Initializes a new instance of the <see cref="OutlookBooking"/> class.
         /// </summary>
-        public FileOutlookBooking()
+        public OutlookBooking()
         {
             bookingData = PopulateBookingData(UserSettings.Default.BookingDirectory);
         }
@@ -145,8 +145,8 @@
                     }
 
                     appointment.Recipients.ResolveAll();
-                    appointment.Display();
-                    //appointment.Send();
+                    //appointment.Display();
+                    appointment.Send();
                     Console.WriteLine($"{booking} sent.");
                     break;
                 }

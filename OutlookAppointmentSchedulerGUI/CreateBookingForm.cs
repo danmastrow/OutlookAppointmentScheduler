@@ -9,11 +9,14 @@
     using System.Windows.Forms;
     using System.Linq;
     using System.Drawing;
+    using Outlook = Microsoft.Office.Interop.Outlook;
+
 
     public partial class CreateBookingForm : Form
     {
         private MainForm parent;
         private List<DateTimePicker> bookingTimes;
+        private Outlook.Application outlookApplication;
 
         public CreateBookingForm()
         {
@@ -24,6 +27,7 @@
         {
             this.parent = parent;
             this.Location = parent.Location;
+            this.outlookApplication = new Outlook.Application();
             InitializeComponent();
             IntializeListViews();
         }
@@ -147,6 +151,51 @@
         private void bookingTimeInputPrimary_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void bookingLocationInput_TextChanged(object sender, EventArgs e)
+        {
+            var validLocation = ValidateRecipient(this.bookingLocationInput.Text);
+            if (validLocation)
+            {
+                this.bookingLocationInput.ForeColor = Color.Green;
+
+            }
+            else
+            {
+                this.bookingLocationInput.ForeColor = Color.Red;
+            }
+        }
+
+        private bool ValidateRecipient(string recipient)
+        {
+            return outlookApplication.Session.CreateRecipient(recipient).Resolve();
+        }
+
+        private void emailRecipientsInput_TextChanged(object sender, EventArgs e)
+        {
+            var oldInput = emailRecipientsInput.Text;
+            var selectedLine = emailRecipientsInput.SelectionStart;
+            emailRecipientsInput.Text = "";
+
+            if (oldInput.Contains("\n"))
+            {
+                foreach (var line in oldInput.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries))
+                {
+
+                    var color = ValidateRecipient(line) ? Color.Green : Color.Red;
+                    emailRecipientsInput.AppendText(line, color);
+                    emailRecipientsInput.AppendText("\n");
+                }
+                //emailRecipientsInput.Text = oldInput;
+            }
+            else
+            {
+                var color = ValidateRecipient(oldInput) ? Color.Green : Color.Red;
+                emailRecipientsInput.AppendText(oldInput, color);
+            }
+
+            emailRecipientsInput.SelectionStart = selectedLine;
         }
     }
 }

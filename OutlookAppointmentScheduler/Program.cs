@@ -23,7 +23,7 @@
 
                         s.ScheduleQuartzJob(q =>
                             q.WithJob(() =>
-                                JobBuilder.Create<FileOutlookBooking>().Build())
+                                JobBuilder.Create<OutlookBooking>().Build())
                             .AddTrigger(() =>
                                 TriggerBuilder.Create()
                             .StartAt(DateBuilder.TodayAt
@@ -46,7 +46,7 @@
 
                         s.ScheduleQuartzJob(q =>
                             q.WithJob(() =>
-                                JobBuilder.Create<FileOutlookBooking>().Build())
+                                JobBuilder.Create<OutlookBooking>().Build())
                             .AddTrigger(() =>
                                 TriggerBuilder.Create()
                                 .StartNow() // Test trigger - Starts immediately.
