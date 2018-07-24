@@ -3,17 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
     using OutlookAppointmentScheduler;
+    using Outlook = Microsoft.Office.Interop.Outlook;
 
     public partial class ModifyBookingForm : Form
     {
         private MainForm parent;
         private IBookingData oldBookingData;
         private IList<DateTimePicker> bookingTimes;
+        private Outlook.Application outlookApplication;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModifyBookingForm" /> class.
@@ -27,10 +27,11 @@
         /// Initializes a new instance of the <see cref="ModifyBookingForm"/> class.
         /// </summary>
         /// <param name="bookingData">The booking data.</param>
-        public ModifyBookingForm(MainForm parent, IBookingData bookingData)
+        public ModifyBookingForm(MainForm parent, IBookingData bookingData, Outlook.Application application)
         {
             this.parent = parent;
             this.oldBookingData = bookingData;
+            this.outlookApplication = application;
             InitializeComponent();
             PopulateListViewItems();
             PrefillUserInputs(bookingData);
@@ -157,6 +158,7 @@
             bookingTimePicker.Value = new DateTime(2018, 1, 1) + UserSettings.Default.DefaultBookingTime;
             bookingTimePicker.ShowUpDown = true;
             bookingTimes.Add(bookingTimePicker);
+
             this.Controls.Add(bookingTimePicker);
             this.buttonRemoveBookingTime.Show();
         }
@@ -170,6 +172,51 @@
                 if (bookingTimes.Count == 1)
                     this.buttonRemoveBookingTime.Hide();
             }
+        }
+        private void bookingLocationInput_TextChanged(object sender, EventArgs e)
+        {
+            var validLocation = ValidateRecipient(this.bookingLocationInput.Text);
+            if (validLocation)
+            {
+                this.bookingLocationInput.ForeColor = Color.Green;
+
+            }
+            else
+            {
+                this.bookingLocationInput.ForeColor = Color.Red;
+            }
+        }
+
+
+        private bool ValidateRecipient(string recipient)
+        {
+            return outlookApplication.Session.CreateRecipient(recipient).Resolve();
+        }
+
+        private void emailRecipientsInput_TextChanged(object sender, EventArgs e)
+        {
+            var oldInput = emailRecipientsInput.Text;
+            var selectedLine = emailRecipientsInput.SelectionStart;
+            emailRecipientsInput.Text = "";
+
+            if (oldInput.Contains("\n"))
+            {
+                foreach (var line in oldInput.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries))
+                {
+
+                    var color = ValidateRecipient(line) ? Color.Green : Color.Red;
+                    emailRecipientsInput.AppendText(line, color);
+                    emailRecipientsInput.AppendText("\n");
+                }
+                //emailRecipientsInput.Text = oldInput;
+            }
+            else
+            {
+                var color = ValidateRecipient(oldInput) ? Color.Green : Color.Red;
+                emailRecipientsInput.AppendText(oldInput, color);
+            }
+
+            emailRecipientsInput.SelectionStart = selectedLine;
         }
     }
 }

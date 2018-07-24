@@ -10,6 +10,8 @@
     using System.Linq;
     using System.Windows.Forms;
     using static System.Windows.Forms.ListViewItem;
+    using Outlook = Microsoft.Office.Interop.Outlook;
+
 
     public partial class MainForm : Form
     {
@@ -22,6 +24,7 @@
         private readonly string uninstallArguments = "uninstall";
 
         private IList<IBookingData> bookingData;
+        private Outlook.Application outlookApplication;
         private SettingsForm settingsForm;
         private CreateBookingForm createBookingForm;
         private ModifyBookingForm modifyBookingForm;
@@ -32,6 +35,7 @@
         /// </summary>
         public MainForm()
         {
+            this.outlookApplication = new Outlook.Application();
             InitializeComponent();
             InitializeService();
             InitializeBookingListView();
@@ -63,11 +67,11 @@
                     modifyBookingForm.Dispose();
 
                 // Get first selected item where filename is the last header.
-                // TODO: Refactor this, if the FileName is no longer the last Public Property then this will fail.
+                // TODO: Refactor this, if the FileName is no longer the last Public Property on IBookingData then this will fail.
                 var fileName = bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text;
                 var booking = bookingData.Where(x => x.FileName == fileName).FirstOrDefault();
 
-                this.modifyBookingForm = new ModifyBookingForm(this, booking);
+                this.modifyBookingForm = new ModifyBookingForm(this, booking, outlookApplication);
                 this.Hide();
                 modifyBookingForm.Show();
             }
@@ -94,7 +98,7 @@
         {
             if (createBookingForm == null || createBookingForm.IsDisposed)
             {
-                createBookingForm = new CreateBookingForm(this);
+                createBookingForm = new CreateBookingForm(this, outlookApplication);
             }
             this.Hide();
             createBookingForm.Show();

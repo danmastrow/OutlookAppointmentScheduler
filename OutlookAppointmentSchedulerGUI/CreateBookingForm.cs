@@ -23,11 +23,11 @@
             InitializeComponent();
         }
 
-        public CreateBookingForm(MainForm parent)
+        public CreateBookingForm(MainForm parent, Outlook.Application application)
         {
             this.parent = parent;
             this.Location = parent.Location;
-            this.outlookApplication = new Outlook.Application();
+            this.outlookApplication = application;
             InitializeComponent();
             IntializeListViews();
         }

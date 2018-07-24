@@ -96,6 +96,7 @@
             this.emailRecipientsInput.Size = new System.Drawing.Size(262, 189);
             this.emailRecipientsInput.TabIndex = 43;
             this.emailRecipientsInput.Text = "";
+            this.emailRecipientsInput.TextChanged += new System.EventHandler(this.emailRecipientsInput_TextChanged);
             // 
             // label2
             // 
