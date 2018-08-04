@@ -62,6 +62,11 @@
     <Compile Include="CreateBookingForm.Designer.cs">
       <DependentUpon>CreateBookingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RichTextBoxExtensions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -98,15 +103,9 @@
       <DependentUpon>ModifyBookingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="img\bookingIcon.ico" />
+    <None Include="img\gearIcon.png" />
+    <None Include="Resources\BookingIcon.png" />
     <None Include="img\bookingIcon.png" />
     <Content Include="img\gearIcon.ico" />
   </ItemGroup>
