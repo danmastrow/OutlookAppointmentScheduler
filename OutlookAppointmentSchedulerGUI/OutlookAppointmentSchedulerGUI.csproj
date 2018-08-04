@@ -128,17 +128,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\bookingIcon.ico" />
-    <None Include="img\gearIcon.png" />
-    <None Include="Resources\BookingIcon.png" />
-    <None Include="img\bookingIcon.png" />
-    <Content Include="img\gearIcon.ico" />
+    <Resource Include="img\gearIcon.png" />
+    <Resource Include="img\bookingIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OutlookAppointmentScheduler\OutlookAppointmentScheduler.csproj">
-      <Project>{9DD1EFB1-3923-43B9-A65E-09FBFE467625}</Project>
+      <Project>{9dd1efb1-3923-43b9-a65e-09fbfe467625}</Project>
       <Name>OutlookAppointmentScheduler</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
