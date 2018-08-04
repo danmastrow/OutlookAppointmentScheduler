@@ -78,7 +78,8 @@
             MessageBox.Show($"{fullFileName} Created");
 
             this.Hide();
-            parent.RefreshData();
+            parent.RefreshServiceStatus();
+            parent.RefreshBookingDisplay();
             parent.Show();
         }
 
@@ -169,7 +170,14 @@
 
         private bool ValidateRecipient(string recipient)
         {
-            return outlookApplication.Session.CreateRecipient(recipient).Resolve();
+            try
+            {
+                return outlookApplication.Session.CreateRecipient(recipient).Resolve();
+            }catch(Exception ex)
+            {
+                MessageBox.Show($"Error validating the recipients.");
+                return false;
+            }
         }
 
         private void emailRecipientsInput_TextChanged(object sender, EventArgs e)

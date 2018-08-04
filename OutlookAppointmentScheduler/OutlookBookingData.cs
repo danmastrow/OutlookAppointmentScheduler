@@ -67,6 +67,10 @@
         [JsonProperty("DayBlackList")]
         public IList<DayOfWeek> DayBlackList { get; set; }
 
+        /// <summary>Gets or sets the name of the file.</summary>
+        /// <value>The name of the file.</value>
+        [JsonProperty("FileName")]
+        public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the booking file has been read by the service.
@@ -75,12 +79,6 @@
         [JsonProperty("FileRead")]
         [HideFromListView]
         public bool FileRead { get; set; }
-
-        /// <summary>Gets or sets the name of the file.</summary>
-        /// <value>The name of the file.</value>
-        [JsonProperty("FileName")]
-        [HideFromListView]
-        public string FileName { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents the OutlookBookingData

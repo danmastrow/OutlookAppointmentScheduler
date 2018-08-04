@@ -140,7 +140,8 @@
             MessageBox.Show($"{modifiedFileName} saved.");
 
             this.Hide();
-            parent.RefreshData();
+            parent.RefreshServiceStatus();
+            parent.RefreshBookingDisplay();
             parent.Show();
         }
 
@@ -188,11 +189,27 @@
         }
 
 
+        /// <summary>Validates the recipient.</summary>
+        /// <param name="recipient">The recipient.</param>
+        /// <returns></returns>
         private bool ValidateRecipient(string recipient)
         {
-            return outlookApplication.Session.CreateRecipient(recipient).Resolve();
+            try
+            {
+                return outlookApplication.Session.CreateRecipient(recipient).Resolve();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error validating the recipients.");
+                return false;
+            }
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the emailRecipientsInput control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void emailRecipientsInput_TextChanged(object sender, EventArgs e)
         {
             var oldInput = emailRecipientsInput.Text;

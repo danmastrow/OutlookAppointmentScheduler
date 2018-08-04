@@ -62,8 +62,9 @@
             // bookingDayBlackListInput
             // 
             this.bookingDayBlackListInput.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.bookingDayBlackListInput.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.bookingDayBlackListInput.FormattingEnabled = true;
-            this.bookingDayBlackListInput.ItemHeight = 17;
+            this.bookingDayBlackListInput.ItemHeight = 15;
             this.bookingDayBlackListInput.Items.AddRange(new object[] {
             "Sunday",
             "Monday",
@@ -75,22 +76,24 @@
             this.bookingDayBlackListInput.Location = new System.Drawing.Point(229, 427);
             this.bookingDayBlackListInput.Name = "bookingDayBlackListInput";
             this.bookingDayBlackListInput.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.bookingDayBlackListInput.Size = new System.Drawing.Size(233, 123);
+            this.bookingDayBlackListInput.Size = new System.Drawing.Size(233, 109);
             this.bookingDayBlackListInput.TabIndex = 39;
             // 
             // label6
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.label6.Location = new System.Drawing.Point(511, 225);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 17);
+            this.label6.Size = new System.Drawing.Size(95, 15);
             this.label6.TabIndex = 52;
-            this.label6.Text = "Recipients";
+            this.label6.Text = "Recipients:";
             // 
             // emailRecipientsInput
             // 
             this.emailRecipientsInput.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.emailRecipientsInput.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.emailRecipientsInput.Location = new System.Drawing.Point(512, 245);
             this.emailRecipientsInput.Name = "emailRecipientsInput";
             this.emailRecipientsInput.Size = new System.Drawing.Size(262, 189);
@@ -102,9 +105,10 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(246, 407);
+            this.label2.Font = new System.Drawing.Font("SimSun", 11.25F);
+            this.label2.Location = new System.Drawing.Point(226, 409);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 17);
+            this.label2.Size = new System.Drawing.Size(191, 15);
             this.label2.TabIndex = 51;
             this.label2.Text = "Booking Day Black List:";
             // 
@@ -112,25 +116,28 @@
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.label8.Location = new System.Drawing.Point(509, 51);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 17);
+            this.label8.Size = new System.Drawing.Size(119, 15);
             this.label8.TabIndex = 50;
-            this.label8.Text = "Email Subject";
+            this.label8.Text = "Email Subject:";
             // 
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.label7.Location = new System.Drawing.Point(509, 111);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 17);
+            this.label7.Size = new System.Drawing.Size(95, 15);
             this.label7.TabIndex = 49;
-            this.label7.Text = "Email Body";
+            this.label7.Text = "Email Body:";
             // 
             // emailBodyInput
             // 
             this.emailBodyInput.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.emailBodyInput.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.emailBodyInput.Location = new System.Drawing.Point(510, 132);
             this.emailBodyInput.Name = "emailBodyInput";
             this.emailBodyInput.Size = new System.Drawing.Size(262, 74);
@@ -140,6 +147,7 @@
             // emailSubjectInput
             // 
             this.emailSubjectInput.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.emailSubjectInput.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.emailSubjectInput.Location = new System.Drawing.Point(510, 71);
             this.emailSubjectInput.Name = "emailSubjectInput";
             this.emailSubjectInput.Size = new System.Drawing.Size(262, 25);
@@ -150,7 +158,7 @@
             this.bookingDaysInFutureInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.bookingDaysInFutureInput.Location = new System.Drawing.Point(35, 333);
             this.bookingDaysInFutureInput.Name = "bookingDaysInFutureInput";
-            this.bookingDaysInFutureInput.Size = new System.Drawing.Size(120, 25);
+            this.bookingDaysInFutureInput.Size = new System.Drawing.Size(131, 25);
             this.bookingDaysInFutureInput.TabIndex = 38;
             this.bookingDaysInFutureInput.Value = new decimal(new int[] {
             7,
@@ -162,9 +170,10 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.label5.Location = new System.Drawing.Point(31, 226);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(112, 17);
+            this.label5.Size = new System.Drawing.Size(143, 15);
             this.label5.TabIndex = 48;
             this.label5.Text = "Booking Duration:";
             // 
@@ -172,37 +181,41 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.label1.Location = new System.Drawing.Point(31, 169);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 17);
+            this.label1.Size = new System.Drawing.Size(143, 15);
             this.label1.TabIndex = 47;
             this.label1.Text = "Booking Location:";
             // 
             // bookingNameInput
             // 
             this.bookingNameInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.bookingNameInput.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.bookingNameInput.Location = new System.Drawing.Point(34, 70);
             this.bookingNameInput.Name = "bookingNameInput";
-            this.bookingNameInput.Size = new System.Drawing.Size(121, 25);
+            this.bookingNameInput.Size = new System.Drawing.Size(132, 25);
             this.bookingNameInput.TabIndex = 32;
             // 
             // labelType
             // 
             this.labelType.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelType.AutoSize = true;
+            this.labelType.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.labelType.Location = new System.Drawing.Point(31, 112);
             this.labelType.Name = "labelType";
-            this.labelType.Size = new System.Drawing.Size(90, 17);
+            this.labelType.Size = new System.Drawing.Size(111, 15);
             this.labelType.TabIndex = 46;
             this.labelType.Text = "Booking Type:";
             // 
             // bookingTypeInput
             // 
             this.bookingTypeInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.bookingTypeInput.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.bookingTypeInput.FormattingEnabled = true;
             this.bookingTypeInput.Location = new System.Drawing.Point(34, 132);
             this.bookingTypeInput.Name = "bookingTypeInput";
-            this.bookingTypeInput.Size = new System.Drawing.Size(121, 25);
+            this.bookingTypeInput.Size = new System.Drawing.Size(132, 23);
             this.bookingTypeInput.TabIndex = 33;
             // 
             // bookingDurationInput
@@ -210,7 +223,7 @@
             this.bookingDurationInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.bookingDurationInput.Location = new System.Drawing.Point(34, 263);
             this.bookingDurationInput.Name = "bookingDurationInput";
-            this.bookingDurationInput.Size = new System.Drawing.Size(121, 25);
+            this.bookingDurationInput.Size = new System.Drawing.Size(132, 25);
             this.bookingDurationInput.TabIndex = 37;
             this.bookingDurationInput.Value = new decimal(new int[] {
             30,
@@ -222,18 +235,20 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(39, 313);
+            this.label4.Font = new System.Drawing.Font("SimSun", 11.25F);
+            this.label4.Location = new System.Drawing.Point(32, 315);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 17);
+            this.label4.Size = new System.Drawing.Size(135, 15);
             this.label4.TabIndex = 44;
-            this.label4.Text = "Days in Advance";
+            this.label4.Text = "Days in Advance:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.label3.Location = new System.Drawing.Point(226, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 17);
+            this.label3.Size = new System.Drawing.Size(119, 15);
             this.label3.TabIndex = 42;
             this.label3.Text = "Booking Times:";
             // 
@@ -241,6 +256,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.buttonCancel.Location = new System.Drawing.Point(11, 521);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(121, 29);
@@ -253,6 +269,7 @@
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.buttonSave.Location = new System.Drawing.Point(651, 521);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(121, 29);
@@ -267,15 +284,17 @@
             this.bookingEnabledInput.AutoSize = true;
             this.bookingEnabledInput.Checked = true;
             this.bookingEnabledInput.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.bookingEnabledInput.Location = new System.Drawing.Point(651, 484);
+            this.bookingEnabledInput.Font = new System.Drawing.Font("SimSun", 11.25F);
+            this.bookingEnabledInput.Location = new System.Drawing.Point(630, 486);
             this.bookingEnabledInput.Name = "bookingEnabledInput";
-            this.bookingEnabledInput.Size = new System.Drawing.Size(125, 21);
+            this.bookingEnabledInput.Size = new System.Drawing.Size(146, 19);
             this.bookingEnabledInput.TabIndex = 31;
             this.bookingEnabledInput.Text = "Booking Enabled";
             this.bookingEnabledInput.UseVisualStyleBackColor = true;
             // 
             // bookingTimeInputPrimary
             // 
+            this.bookingTimeInputPrimary.CalendarFont = new System.Drawing.Font("SimSun", 11.25F);
             this.bookingTimeInputPrimary.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.bookingTimeInputPrimary.Location = new System.Drawing.Point(229, 70);
             this.bookingTimeInputPrimary.Name = "bookingTimeInputPrimary";
@@ -288,34 +307,37 @@
             // 
             this.labelName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelName.AutoSize = true;
+            this.labelName.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.labelName.Location = new System.Drawing.Point(31, 51);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(97, 17);
+            this.labelName.Size = new System.Drawing.Size(111, 15);
             this.labelName.TabIndex = 34;
             this.labelName.Text = "Booking Name:";
             // 
             // bookingLocationInput
             // 
             this.bookingLocationInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.bookingLocationInput.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.bookingLocationInput.Location = new System.Drawing.Point(34, 189);
             this.bookingLocationInput.Name = "bookingLocationInput";
-            this.bookingLocationInput.Size = new System.Drawing.Size(121, 25);
+            this.bookingLocationInput.Size = new System.Drawing.Size(132, 25);
             this.bookingLocationInput.TabIndex = 36;
             // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.label9.Location = new System.Drawing.Point(51, 243);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 17);
+            this.label9.Size = new System.Drawing.Size(79, 15);
             this.label9.TabIndex = 53;
             this.label9.Text = "(Minutes)";
             // 
             // buttonAddBookingTime
             // 
             this.buttonAddBookingTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddBookingTime.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddBookingTime.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.buttonAddBookingTime.Location = new System.Drawing.Point(356, 69);
             this.buttonAddBookingTime.Name = "buttonAddBookingTime";
             this.buttonAddBookingTime.Size = new System.Drawing.Size(25, 25);
@@ -327,7 +349,7 @@
             // buttonRemoveBookingTime
             // 
             this.buttonRemoveBookingTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRemoveBookingTime.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveBookingTime.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.buttonRemoveBookingTime.Location = new System.Drawing.Point(387, 69);
             this.buttonRemoveBookingTime.Name = "buttonRemoveBookingTime";
             this.buttonRemoveBookingTime.Size = new System.Drawing.Size(25, 25);

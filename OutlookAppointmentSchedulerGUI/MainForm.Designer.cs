@@ -47,6 +47,7 @@
             // 
             this.buttonInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonInstall.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInstall.Location = new System.Drawing.Point(652, 489);
             this.buttonInstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonInstall.Name = "buttonInstall";
@@ -60,6 +61,7 @@
             // 
             this.buttonUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUninstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUninstall.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonUninstall.Location = new System.Drawing.Point(652, 527);
             this.buttonUninstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonUninstall.Name = "buttonUninstall";
@@ -73,6 +75,7 @@
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStart.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStart.Location = new System.Drawing.Point(14, 451);
             this.buttonStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonStart.Name = "buttonStart";
@@ -86,6 +89,7 @@
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStop.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStop.Location = new System.Drawing.Point(14, 527);
             this.buttonStop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonStop.Name = "buttonStop";
@@ -99,10 +103,10 @@
             // 
             this.serviceStatusText.AutoSize = true;
             this.serviceStatusText.BackColor = System.Drawing.Color.Transparent;
-            this.serviceStatusText.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serviceStatusText.Location = new System.Drawing.Point(12, 9);
+            this.serviceStatusText.Font = new System.Drawing.Font("SimSun-ExtB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.serviceStatusText.Location = new System.Drawing.Point(12, 16);
             this.serviceStatusText.Name = "serviceStatusText";
-            this.serviceStatusText.Size = new System.Drawing.Size(128, 25);
+            this.serviceStatusText.Size = new System.Drawing.Size(164, 21);
             this.serviceStatusText.TabIndex = 6;
             this.serviceStatusText.Text = "Service Status";
             // 
@@ -110,6 +114,7 @@
             // 
             this.buttonLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLaunch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLaunch.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLaunch.Location = new System.Drawing.Point(652, 451);
             this.buttonLaunch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonLaunch.Name = "buttonLaunch";
@@ -122,12 +127,14 @@
             // buttonSettings
             // 
             this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSettings.Image = global::OutlookAppointmentSchedulerGUI.Properties.Resources.gearIcon;
-            this.buttonSettings.Location = new System.Drawing.Point(713, 13);
+            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSettings.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSettings.Location = new System.Drawing.Point(666, 13);
             this.buttonSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSettings.Name = "buttonSettings";
-            this.buttonSettings.Size = new System.Drawing.Size(59, 58);
+            this.buttonSettings.Size = new System.Drawing.Size(106, 30);
             this.buttonSettings.TabIndex = 30;
+            this.buttonSettings.Text = "Settings";
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
@@ -135,6 +142,7 @@
             // 
             this.buttonRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRestart.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRestart.Location = new System.Drawing.Point(14, 489);
             this.buttonRestart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonRestart.Name = "buttonRestart";
@@ -148,7 +156,7 @@
             // 
             this.buttonAddBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddBooking.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.buttonAddBooking.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.buttonAddBooking.Location = new System.Drawing.Point(12, 400);
             this.buttonAddBooking.Name = "buttonAddBooking";
             this.buttonAddBooking.Size = new System.Drawing.Size(30, 30);
@@ -161,7 +169,7 @@
             // 
             this.buttonRemoveBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemoveBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRemoveBooking.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.buttonRemoveBooking.Font = new System.Drawing.Font("SimSun", 11.25F);
             this.buttonRemoveBooking.Location = new System.Drawing.Point(53, 400);
             this.buttonRemoveBooking.Name = "buttonRemoveBooking";
             this.buttonRemoveBooking.Size = new System.Drawing.Size(30, 30);
@@ -176,6 +184,7 @@
             this.bookingListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.bookingListView.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bookingListView.FullRowSelect = true;
             this.bookingListView.GridLines = true;
             this.bookingListView.Location = new System.Drawing.Point(14, 78);

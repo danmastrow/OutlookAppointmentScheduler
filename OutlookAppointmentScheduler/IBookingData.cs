@@ -64,6 +64,11 @@
         [JsonProperty("DayBlackList")]
         IList<DayOfWeek> DayBlackList { get; set; }
 
+        /// <summary>Gets or sets the name of the file for the booking.</summary>
+        /// <value>The name of the file.</value>
+        [JsonProperty("FileName")]
+        string FileName { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether the booking file has been read by the service.
         /// </summary>
@@ -71,11 +76,5 @@
         [JsonProperty("FileRead")]
         [HideFromListView]
         bool FileRead { get; set; }
-
-        /// <summary>Gets or sets the name of the file for the booking.</summary>
-        /// <value>The name of the file.</value>
-        [JsonProperty("FileName")]
-        [HideFromListView]
-        string FileName { get; set; }
     }
 }

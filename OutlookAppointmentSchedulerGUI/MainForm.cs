@@ -12,7 +12,6 @@
     using static System.Windows.Forms.ListViewItem;
     using Outlook = Microsoft.Office.Interop.Outlook;
 
-
     public partial class MainForm : Form
     {
         private readonly string fileSearchPattern = "*.json";
@@ -35,20 +34,34 @@
         /// </summary>
         public MainForm()
         {
-            this.outlookApplication = new Outlook.Application();
             InitializeComponent();
             InitializeService();
             InitializeBookingListView();
-            RefreshData();
+            RefreshServiceStatus();
+            RefreshBookingDisplay();
             InitalizeTimer();
+            InitializeFileWatcher();
+        }
+
+        private void InitializeFileWatcher()
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = UserSettings.Default.BookingDirectory;
+            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            watcher.Filter = "*.json";
+            watcher.Changed += new FileSystemEventHandler(BookingFileChanged);
+        }
+
+        private void BookingFileChanged(object sender, FileSystemEventArgs e)
+        {
+            RefreshBookingDisplay();
         }
 
         /// <summary>Refreshes all potentially changing data.</summary>
-        public void RefreshData()
+        public void RefreshServiceStatus()
         {
             serviceStatusText.Text = ServiceStatusText();
             SetButtonStatusByServiceStatus();
-            RefreshBookingDisplay();
         }
 
         /// <summary>
@@ -67,8 +80,9 @@
                     modifyBookingForm.Dispose();
 
                 // Get first selected item where filename is the last header.
-                // TODO: Refactor this, if the FileName is no longer the last Public Property on IBookingData then this will fail.
-                var fileName = bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text;
+                var column = bookingListView.Columns["FileName"];
+                var index = bookingListView.Columns.IndexOf(column);
+                var fileName = bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList()[index].Text;
                 var booking = bookingData.Where(x => x.FileName == fileName).FirstOrDefault();
 
                 this.modifyBookingForm = new ModifyBookingForm(this, booking, outlookApplication);
@@ -88,7 +102,6 @@
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         /// <summary>Handles the Click event of the buttonAddBooking control.</summary>
@@ -120,23 +133,25 @@
             var process = Process.Start(executableName);
         }
 
+        /// <summary>Handles the Click event of the buttonRemoveBooking control.</summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void buttonRemoveBooking_Click(object sender, EventArgs e)
         {
-            // TODO: If the button has been pressed for the current selection, disallow further removes (spams search).
-            // TODO: set a boolean buttonRemovedClicked = true
-            // TODO: on the listviewindex change reset this boolean to false
             if (bookingListView.SelectedItems.Count == 0)
                 return;
 
             var directoryInfo = new DirectoryInfo(UserSettings.Default.BookingDirectory);
-            foreach (var jsonFile in directoryInfo.GetFiles(fileSearchPattern))
+            var column = bookingListView.Columns["FileName"];
+            var index = bookingListView.Columns.IndexOf(column);
+
+            foreach (ListViewItem selectedBooking in bookingListView.SelectedItems)
             {
-                foreach (var booking in this.bookingData)
+                foreach (var file in directoryInfo.GetFiles(fileSearchPattern))
                 {
-                    // Find booking by fullname.
-                    if (jsonFile.FullName == bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text)
+                    if (selectedBooking.SubItems[index].Text == file.FullName)
                     {
-                        jsonFile.Delete();
+                        file.Delete();
                     }
                 }
             }
@@ -237,9 +252,12 @@
                 string value = "";
                 if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(String))
                 {
-                    foreach (var collectionItem in prop.GetValue(booking) as IList)
+                    if (prop.GetValue(booking) is IList collection)
                     {
-                        value += $"{collectionItem} ";
+                        foreach (var collectionItem in prop.GetValue(booking) as IList)
+                        {
+                            value += $"{collectionItem} ";
+                        }
                     }
                 }
                 else
@@ -272,8 +290,7 @@
         /// <summary>Initalizes the timer used to Poll the service and JSON files.</summary>
         private void InitalizeTimer()
         {
-            timer = new Timer();
-            timer.Interval = pollInterval;
+            timer = new Timer { Interval = pollInterval };
             serviceStatusText.Text = ServiceStatusText();
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
@@ -296,12 +313,16 @@
                 if (!prop.GetCustomAttributes(false)
                     .Any(a => a.GetType() == typeof(HideFromListView)))
                 {
-                    bookingListView.Columns.Add(prop.Name);
+                    var column = new ColumnHeader()
+                    {
+                        Name = prop.Name,
+                        Text = prop.Name
+                    };
+                    bookingListView.Columns.Add(column);
                 }
             }
 
             bookingListView.ItemActivate += bookingListView_ItemActivate;
-            //bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         /// <summary>Intiializes the service.</summary>
@@ -337,13 +358,14 @@
         }
 
         /// <summary>Refreshes the booking display.</summary>
-        private void RefreshBookingDisplay()
+        public void RefreshBookingDisplay()
         {
             // Read every .json file in the bookings directory and update the ListView
             this.bookingData = DeserializeJsonToBookingData(UserSettings.Default.BookingDirectory);
             PopulateListView(bookingListView, bookingData);
             bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
+
         /// <summary>Services the status text.</summary>
         /// <returns></returns>
         private string ServiceStatusText()
@@ -437,10 +459,23 @@
         /// <summary>Starts the service.</summary>f
         private void StartService()
         {
-            serviceController1.Refresh();
-            if (serviceController1.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
-                serviceController1.Start();
+            try
+            {
+                serviceController1.Refresh();
+                if (serviceController1.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                    serviceController1.Start();
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
+
         /// <summary>Stops the service.</summary>
         private void StopService()
         {
@@ -449,12 +484,13 @@
                 serviceController1.Stop();
             }
         }
+
         /// <summary>Handles the Tick event of the Timer control.</summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            RefreshData();
+            RefreshServiceStatus();
         }
     }
 }
