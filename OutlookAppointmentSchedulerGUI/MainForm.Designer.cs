@@ -45,48 +45,52 @@
             // 
             // buttonInstall
             // 
+            this.buttonInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonInstall.Location = new System.Drawing.Point(427, 389);
+            this.buttonInstall.Location = new System.Drawing.Point(652, 489);
             this.buttonInstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonInstall.Name = "buttonInstall";
             this.buttonInstall.Size = new System.Drawing.Size(120, 30);
-            this.buttonInstall.TabIndex = 1;
+            this.buttonInstall.TabIndex = 8;
             this.buttonInstall.Text = "Install Service";
             this.buttonInstall.UseVisualStyleBackColor = true;
             this.buttonInstall.Click += new System.EventHandler(this.buttonInstall_Click);
             // 
             // buttonUninstall
             // 
+            this.buttonUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUninstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonUninstall.Location = new System.Drawing.Point(427, 427);
+            this.buttonUninstall.Location = new System.Drawing.Point(652, 527);
             this.buttonUninstall.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonUninstall.Name = "buttonUninstall";
             this.buttonUninstall.Size = new System.Drawing.Size(120, 30);
-            this.buttonUninstall.TabIndex = 2;
+            this.buttonUninstall.TabIndex = 9;
             this.buttonUninstall.Text = "Uninstall Service";
             this.buttonUninstall.UseVisualStyleBackColor = true;
             this.buttonUninstall.Click += new System.EventHandler(this.buttonUninstall_Click);
             // 
             // buttonStart
             // 
+            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonStart.Location = new System.Drawing.Point(14, 351);
+            this.buttonStart.Location = new System.Drawing.Point(14, 451);
             this.buttonStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(120, 30);
-            this.buttonStart.TabIndex = 3;
+            this.buttonStart.TabIndex = 4;
             this.buttonStart.Text = "Start Service";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // buttonStop
             // 
+            this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonStop.Location = new System.Drawing.Point(14, 427);
+            this.buttonStop.Location = new System.Drawing.Point(14, 527);
             this.buttonStop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(120, 30);
-            this.buttonStop.TabIndex = 4;
+            this.buttonStop.TabIndex = 6;
             this.buttonStop.Text = "Stop Service";
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
@@ -104,8 +108,9 @@
             // 
             // buttonLaunch
             // 
+            this.buttonLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLaunch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLaunch.Location = new System.Drawing.Point(427, 351);
+            this.buttonLaunch.Location = new System.Drawing.Point(652, 451);
             this.buttonLaunch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonLaunch.Name = "buttonLaunch";
             this.buttonLaunch.Size = new System.Drawing.Size(120, 30);
@@ -116,57 +121,67 @@
             // 
             // buttonSettings
             // 
+            this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSettings.Image = global::OutlookAppointmentSchedulerGUI.Properties.Resources.gearIcon;
-            this.buttonSettings.Location = new System.Drawing.Point(488, 13);
+            this.buttonSettings.Location = new System.Drawing.Point(713, 13);
             this.buttonSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(59, 58);
-            this.buttonSettings.TabIndex = 8;
+            this.buttonSettings.TabIndex = 30;
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
             // buttonRestart
             // 
+            this.buttonRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRestart.Location = new System.Drawing.Point(14, 389);
+            this.buttonRestart.Location = new System.Drawing.Point(14, 489);
             this.buttonRestart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonRestart.Name = "buttonRestart";
             this.buttonRestart.Size = new System.Drawing.Size(120, 30);
-            this.buttonRestart.TabIndex = 9;
+            this.buttonRestart.TabIndex = 5;
             this.buttonRestart.Text = "Restart Service";
             this.buttonRestart.UseVisualStyleBackColor = true;
             this.buttonRestart.Click += new System.EventHandler(this.buttonRestart_Click);
             // 
             // buttonAddBooking
             // 
+            this.buttonAddBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddBooking.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.buttonAddBooking.Location = new System.Drawing.Point(12, 300);
+            this.buttonAddBooking.Location = new System.Drawing.Point(12, 400);
             this.buttonAddBooking.Name = "buttonAddBooking";
             this.buttonAddBooking.Size = new System.Drawing.Size(30, 30);
-            this.buttonAddBooking.TabIndex = 12;
+            this.buttonAddBooking.TabIndex = 1;
             this.buttonAddBooking.Text = "+";
             this.buttonAddBooking.UseVisualStyleBackColor = true;
             this.buttonAddBooking.Click += new System.EventHandler(this.buttonAddBooking_Click);
             // 
             // buttonRemoveBooking
             // 
+            this.buttonRemoveBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemoveBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRemoveBooking.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.buttonRemoveBooking.Location = new System.Drawing.Point(53, 300);
+            this.buttonRemoveBooking.Location = new System.Drawing.Point(53, 400);
             this.buttonRemoveBooking.Name = "buttonRemoveBooking";
             this.buttonRemoveBooking.Size = new System.Drawing.Size(30, 30);
-            this.buttonRemoveBooking.TabIndex = 13;
+            this.buttonRemoveBooking.TabIndex = 2;
             this.buttonRemoveBooking.Text = "-";
             this.buttonRemoveBooking.UseVisualStyleBackColor = true;
             this.buttonRemoveBooking.Click += new System.EventHandler(this.buttonRemoveBooking_Click);
             // 
             // bookingListView
             // 
+            this.bookingListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.bookingListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bookingListView.FullRowSelect = true;
+            this.bookingListView.GridLines = true;
             this.bookingListView.Location = new System.Drawing.Point(14, 78);
             this.bookingListView.Name = "bookingListView";
-            this.bookingListView.Size = new System.Drawing.Size(535, 216);
-            this.bookingListView.TabIndex = 14;
+            this.bookingListView.Size = new System.Drawing.Size(760, 316);
+            this.bookingListView.TabIndex = 3;
             this.bookingListView.UseCompatibleStateImageBehavior = false;
             this.bookingListView.View = System.Windows.Forms.View.Details;
             this.bookingListView.SelectedIndexChanged += new System.EventHandler(this.bookingListView_SelectedIndexChanged);
@@ -175,7 +190,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(559, 462);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.bookingListView);
             this.Controls.Add(this.buttonRemoveBooking);
             this.Controls.Add(this.buttonAddBooking);

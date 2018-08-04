@@ -10,7 +10,7 @@
         /// <summary>Gets or sets the name of the booking.</summary>
         /// <value>The Booking name.</value>
         [JsonProperty("Name")]
-        string Name{ get; set; }
+        string Name { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="IBookingData" /> is enabled.
@@ -24,10 +24,10 @@
         [JsonProperty("Type")]
         BookingType Type { get; set; }
 
-        /// <summary>Gets or sets the time.</summary>
-        /// <value>The time.</value>
+        /// <summary>Gets or sets the times for the booking.</summary>
+        /// <value>The times.</value>
         [JsonProperty("Time")]
-        TimeSpan Time { get; set; }
+        IList<TimeSpan> Times { get; set; }
 
         /// <summary>Gets or sets the location.</summary>
         /// <value>The location.</value>
@@ -64,8 +64,18 @@
         [JsonProperty("DayBlackList")]
         IList<DayOfWeek> DayBlackList { get; set; }
 
-        /// <summary>Gets or sets the creation time.</summary>
-        /// <value>The creation time.</value>
-        DateTime CreationTime { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the booking file has been read by the service.
+        /// </summary>
+        /// <value><c>true</c> if [file read]; otherwise, <c>false</c>.</value>
+        [JsonProperty("FileRead")]
+        [HideFromListView]
+        bool FileRead { get; set; }
+
+        /// <summary>Gets or sets the name of the file for the booking.</summary>
+        /// <value>The name of the file.</value>
+        [JsonProperty("FileName")]
+        [HideFromListView]
+        string FileName { get; set; }
     }
 }

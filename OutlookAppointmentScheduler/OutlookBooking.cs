@@ -40,7 +40,7 @@
         /// </remarks>
         public void Execute(IJobExecutionContext context)
         {
-            Console.WriteLine("Execute OutlookBooking");
+            Console.WriteLine("Executing a FileOutlookBooking");
             Send(bookingData);
         }
 
@@ -55,13 +55,13 @@
         /// <param name="bookingData">The booking data.</param>
         public void Send(IList<IBookingData> bookingData)
         {
-            bool meetingFree = false;
             foreach (var booking in bookingData)
             {
-                if (!meetingFree)
+                if (booking.Enabled)
                 {
-                    meetingFree = SendOutlookMeeting(booking);
+                    SendOutlookMeeting(booking);
                 }
+                //TODO: Set this in the JSON filebooking.FileRead = true;
             }
         }
 
@@ -72,7 +72,7 @@
         {
             IList<IBookingData> result = new List<IBookingData>();
             DirectoryInfo directoryInfo = new DirectoryInfo(bookingDirectory);
-            Directory.CreateDirectory(bookingDirectory); // Create the directory if it doesn't already exist.
+            Directory.CreateDirectory(bookingDirectory);
 
             foreach (var jsonFile in directoryInfo.GetFiles(fileSearchPattern))
             {
@@ -81,9 +81,9 @@
                     using (JsonTextReader reader = new JsonTextReader(file))
                     {
                         JsonSerializer serializer = new JsonSerializer();
-                        IBookingData bookingData = serializer.Deserialize<OutlookBookingData>(reader);
-                        bookingData.CreationTime = jsonFile.CreationTime;
-                        result.Add(bookingData);
+                        IBookingData booking = serializer.Deserialize<OutlookBookingData>(reader);
+                        booking.FileName = jsonFile.FullName;
+                        result.Add(booking);
                     }
                 }
             }
@@ -106,56 +106,56 @@
         /// <summary>Checks whether the location and time is free, then sends and returns whether was free.</summary>
         /// <param name="booking">The booking.</param>
         /// <returns>Location is free or not prior to booking.</returns>
-        private bool SendOutlookMeeting(IBookingData booking)
+        private void SendOutlookMeeting(IBookingData booking)
         {
             Console.WriteLine($"Sending {booking.ToString()}");
             try
             {
-                var startDate = DateTime.Now.AddDays(booking.NumberOfDaysInFuture).Date + booking.Time;
-                var endDate = startDate.AddMinutes(booking.DurationInMinutes);
-
-                if (booking.DayBlackList.Contains(startDate.DayOfWeek))
-                    return false;
-
-                var app = new Outlook.Application();
-                Outlook.AppointmentItem appointment = app.CreateItem(Outlook.OlItemType.olAppointmentItem);
-                appointment.MeetingStatus = Outlook.OlMeetingStatus.olMeeting;
-
-                appointment.Location = booking.Location;
-                appointment.Start = startDate;
-                appointment.End = endDate;
-                appointment.Body = booking.Body;
-                appointment.Subject = booking.Subject;
-
-                foreach (var recipient in booking.Recipients)
+                foreach (TimeSpan time in booking.Times)
                 {
-                    appointment.Recipients.Add(recipient);
-                }
+                    var startDate = DateTime.Now.AddDays(booking.NumberOfDaysInFuture).Date + time;
+                    var endDate = startDate.AddMinutes(booking.DurationInMinutes);
 
-                appointment.Recipients.Add(booking.Location);
+                    // If booking day is blacklisted or not free, try the next time in the booking.
+                    if (booking.DayBlackList.Contains(startDate.DayOfWeek))
+                    {
+                        Console.WriteLine($"{startDate} is blacklisted in this booking, booking not sent.");
+                        continue;
+                    }
 
-                appointment.Recipients.ResolveAll();
+                    bool isFree = LocationIsFree(startDate, booking.Location, new Outlook.Application());
+                    if (!isFree)
+                    {
+                        Console.WriteLine($"{startDate} is not free at the specified location, booking not sent.");
+                        continue;
+                    }
 
-                bool isFree = LocationIsFree(startDate, booking.Location, new Outlook.Application());
+                    var app = new Outlook.Application();
+                    Outlook.AppointmentItem appointment = app.CreateItem(Outlook.OlItemType.olAppointmentItem);
+                    appointment.MeetingStatus = Outlook.OlMeetingStatus.olMeeting;
+                    appointment.Location = booking.Location;
+                    appointment.Start = startDate;
+                    appointment.End = endDate;
+                    appointment.Body = booking.Body;
+                    appointment.Subject = booking.Subject;
+                    appointment.Recipients.Add(booking.Location);
+                    foreach (var recipient in booking.Recipients)
+                    {
+                        appointment.Recipients.Add(recipient);
+                    }
 
-                if (isFree)
-                {
-                    // Use this for debugging: appointment.Display();
-                    appointment.Display();
-                    //appointment.Send();
+                    appointment.Recipients.ResolveAll();
+                    //appointment.Display();
+                    appointment.Send();
                     Console.WriteLine($"{booking} sent.");
+                    break;
                 }
-                else
-                {
-                    Console.WriteLine($"{booking} not free.");
-                }
-                return isFree;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: OutlookMeeting failed to send: {ex.Message}");
-                return false;
             }
+
         }
     }
 }

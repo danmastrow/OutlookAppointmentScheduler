@@ -9,11 +9,14 @@
     using System.IO;
     using System.Linq;
     using System.Windows.Forms;
+    using static System.Windows.Forms.ListViewItem;
+    using Outlook = Microsoft.Office.Interop.Outlook;
+
 
     public partial class MainForm : Form
     {
-        private const string fileSearchPattern = "*.json";
-        private const string serviceNotInstalledMessage = "Service not installed.";
+        private readonly string fileSearchPattern = "*.json";
+        private readonly string serviceNotInstalledMessage = "Service not installed.";
         private readonly string executableName = "OutlookAppointmentScheduler";
         private readonly string installArguments = "install --autostart";
         private readonly int pollInterval = 3000;
@@ -21,7 +24,10 @@
         private readonly string uninstallArguments = "uninstall";
 
         private IList<IBookingData> bookingData;
-        private Form settingsForm, createBookingForm;
+        private Outlook.Application outlookApplication;
+        private SettingsForm settingsForm;
+        private CreateBookingForm createBookingForm;
+        private ModifyBookingForm modifyBookingForm;
         private Timer timer;
 
         /// <summary>
@@ -29,8 +35,9 @@
         /// </summary>
         public MainForm()
         {
+            this.outlookApplication = new Outlook.Application();
             InitializeComponent();
-            IntiializeService();
+            InitializeService();
             InitializeBookingListView();
             RefreshData();
             InitalizeTimer();
@@ -44,14 +51,54 @@
             RefreshBookingDisplay();
         }
 
-        private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Handles the ItemActivate event of the bookingListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void bookingListView_ItemActivate(object sender, EventArgs e)
         {
+            try
+            {
+                if (bookingListView.SelectedItems.Count >= 2 || bookingListView.SelectedItems.Count == 0)
+                    return;
+
+                if (modifyBookingForm != null)
+                    modifyBookingForm.Dispose();
+
+                // Get first selected item where filename is the last header.
+                // TODO: Refactor this, if the FileName is no longer the last Public Property on IBookingData then this will fail.
+                var fileName = bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text;
+                var booking = bookingData.Where(x => x.FileName == fileName).FirstOrDefault();
+
+                this.modifyBookingForm = new ModifyBookingForm(this, booking, outlookApplication);
+                this.Hide();
+                modifyBookingForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("File could not be opened.");
+            }
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the bookingListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>Handles the Click event of the buttonAddBooking control.</summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void buttonAddBooking_Click(object sender, EventArgs e)
         {
-            if (createBookingForm == null || createBookingForm.IsDisposed) {
-                createBookingForm = new CreateBookingForm(this);
+            if (createBookingForm == null || createBookingForm.IsDisposed)
+            {
+                createBookingForm = new CreateBookingForm(this, outlookApplication);
             }
             this.Hide();
             createBookingForm.Show();
@@ -75,23 +122,25 @@
 
         private void buttonRemoveBooking_Click(object sender, EventArgs e)
         {
+            // TODO: If the button has been pressed for the current selection, disallow further removes (spams search).
+            // TODO: set a boolean buttonRemovedClicked = true
+            // TODO: on the listviewindex change reset this boolean to false
             if (bookingListView.SelectedItems.Count == 0)
                 return;
 
-            // The way I've done this to compare the View to the actual JSON files is storing the CreationTime in the Model
-            // The reason I wanted this is that I didnt want to be forced to store the file name
-            // Also I might use the Creation Time in the future for display.
             var directoryInfo = new DirectoryInfo(UserSettings.Default.BookingDirectory);
             foreach (var jsonFile in directoryInfo.GetFiles(fileSearchPattern))
             {
                 foreach (var booking in this.bookingData)
                 {
-                    if (jsonFile.CreationTime == booking.CreationTime)
+                    // Find booking by fullname.
+                    if (jsonFile.FullName == bookingListView.SelectedItems[0].SubItems.Cast<ListViewSubItem>().ToList().Last().Text)
                     {
                         jsonFile.Delete();
                     }
                 }
             }
+            RefreshBookingDisplay();
         }
 
         /// <summary>Handles the Click event of the buttonRestart control.</summary>
@@ -110,7 +159,8 @@
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            if (settingsForm == null || settingsForm.IsDisposed) {
+            if (settingsForm == null || settingsForm.IsDisposed)
+            {
                 settingsForm = new SettingsForm(this);
             }
             this.Hide();
@@ -157,9 +207,9 @@
                     using (JsonTextReader reader = new JsonTextReader(file))
                     {
                         JsonSerializer serializer = new JsonSerializer();
-                        IBookingData bookingData = serializer.Deserialize<OutlookBookingData>(reader);
-                        bookingData.CreationTime = jsonFile.CreationTime;
-                        result.Add(bookingData);
+                        IBookingData booking = serializer.Deserialize<OutlookBookingData>(reader);
+                        booking.FileName = jsonFile.FullName;
+                        result.Add(booking);
                     }
                 }
             }
@@ -177,9 +227,9 @@
         }
 
         /// <summary>Formats the booking data as ListView item.</summary>
-        /// <param name="bookingData">The booking data.</param>
+        /// <param name="booking">The booking data.</param>
         /// <returns></returns>
-        private ListViewItem FormatBookingDataAsListViewItem(IBookingData bookingData)
+        private ListViewItem FormatBookingDataAsListViewItem(IBookingData booking)
         {
             var props = new List<string>();
             foreach (var prop in typeof(IBookingData).GetProperties())
@@ -187,14 +237,14 @@
                 string value = "";
                 if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(String))
                 {
-                    foreach (var collectionItem in prop.GetValue(bookingData) as IList)
+                    foreach (var collectionItem in prop.GetValue(booking) as IList)
                     {
-                        value += $"{collectionItem};";
+                        value += $"{collectionItem} ";
                     }
                 }
                 else
                 {
-                    value = prop.GetValue(bookingData).ToString();
+                    value = prop.GetValue(booking).ToString();
                 }
                 props.Add(value);
             }
@@ -239,15 +289,23 @@
                 bookingListView.Groups.Add(group);
             }
 
-            // Based upon the IBookingData Public Properties, Generate Columns
+            // Based upon the IBookingData Public Properties
+            // Generate listviewdata, that does not have the HideFromListView attribute.
             foreach (var prop in typeof(IBookingData).GetProperties())
             {
-                bookingListView.Columns.Add(prop.Name);
+                if (!prop.GetCustomAttributes(false)
+                    .Any(a => a.GetType() == typeof(HideFromListView)))
+                {
+                    bookingListView.Columns.Add(prop.Name);
+                }
             }
+
+            bookingListView.ItemActivate += bookingListView_ItemActivate;
+            //bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         /// <summary>Intiializes the service.</summary>
-        private void IntiializeService()
+        private void InitializeService()
         {
             serviceController1.ServiceName = serviceName;
             serviceController1.MachineName = Environment.MachineName;
@@ -262,18 +320,18 @@
         }
 
         /// <summary>Populates the Booking ListView with all Booking.JSON files.</summary>
-        /// <param name="bookingData">The booking data.</param>
-        private void PopulateListView(ListView listView, IList<IBookingData> bookingData)
+        /// <param name="booking">The booking data.</param>
+        private void PopulateListView(ListView listView, IList<IBookingData> booking)
         {
             bookingListView.Items.Clear();
 
-            if (bookingData.Count == 0)
+            if (booking.Count == 0)
                 return;
 
-            foreach (var booking in bookingData)
+            foreach (var book in booking)
             {
-                var listViewData = FormatBookingDataAsListViewItem(booking);
-                listViewData.Group = GetListViewGroupByHeader(listView, booking.Type.ToString());
+                var listViewData = FormatBookingDataAsListViewItem(book);
+                listViewData.Group = GetListViewGroupByHeader(listView, book.Type.ToString());
                 listView.Items.Add(listViewData);
             }
         }
@@ -284,6 +342,7 @@
             // Read every .json file in the bookings directory and update the ListView
             this.bookingData = DeserializeJsonToBookingData(UserSettings.Default.BookingDirectory);
             PopulateListView(bookingListView, bookingData);
+            bookingListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
         /// <summary>Services the status text.</summary>
         /// <returns></returns>
@@ -375,7 +434,7 @@
             }
         }
 
-        /// <summary>Starts the service.</summary>
+        /// <summary>Starts the service.</summary>f
         private void StartService()
         {
             serviceController1.Refresh();

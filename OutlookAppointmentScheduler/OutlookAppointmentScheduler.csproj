@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingType.cs" />
+    <Compile Include="HideFromListView.cs" />
     <Compile Include="IBooking.cs" />
     <Compile Include="IBookingData.cs" />
     <Compile Include="OutlookAppointmentService.cs" />

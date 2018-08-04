@@ -34,5 +34,29 @@ namespace OutlookAppointmentSchedulerGUI {
                 this["BookingDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15:00:00")]
+        public global::System.TimeSpan DefaultBookingTime {
+            get {
+                return ((global::System.TimeSpan)(this["DefaultBookingTime"]));
+            }
+            set {
+                this["DefaultBookingTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#AU MELY Room Table Tennis")]
+        public string DefaultBookingLocation {
+            get {
+                return ((string)(this["DefaultBookingLocation"]));
+            }
+            set {
+                this["DefaultBookingLocation"] = value;
+            }
+        }
     }
 }

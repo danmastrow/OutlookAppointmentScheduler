@@ -60,7 +60,7 @@
                 }
                 else
                 {
-                    throw new System.Exception("Argument not recognised.");
+                    throw new System.Exception("Invalid UserSettings.StartType: Argument not recognised.");
                 }
 
                 x.RunAsLocalSystem()
