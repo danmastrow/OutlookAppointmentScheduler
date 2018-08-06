@@ -12,8 +12,6 @@ It then interprets these JSON files and sends Outlook Appointments appropriately
 This could be used for example to make Table Tennis bookings if perhaps they were only available from 7 days in advance.
 Or to book Outlook rooms that are highly contested, or just an easier way to manage automatic bookings.
 
-
-
 ## Getting Started
 1. Build the solution.
 2. Run the GUI project.
@@ -29,24 +27,21 @@ Or to book Outlook rooms that are highly contested, or just an easier way to man
 7. To modify existing bookings, double click the booking on the MainForm.
 8. Once the bookings are created and the Service is installed, they will automatically be booked at the specific time.
 
-
-
 ## Todo
+- [ ] Implement Serilog logging and metrics in the service.
 - [x] Setup Topshelf and Quartz scheduler.
 - [x] Add config file to read appointment information.
 - [x] Create booking and send based upon config information.
 - [x] Attach a Windows Form project to the solution that manages the service and monitors the service status.
 - [x] Write Appointment Bookings to JSON files and read from that in the Service.
-- [ ] Fix the refresh service polling bug, replace with event hook on Service Status.
-- [ ] Implement Serilog logging and metrics in the service.
-- [ ] Create GitHub release.
+- [x] Create GitHub release.
 - [x] Resize the MainForm GUI to the size of the ListView on load.
-- [ ] Add Windows Form Functionality (Settings Page) that reads/writes to the config file for easy configurability.
 
 ## Backlog
 - [ ] Read and write appointment information from database.
 - [ ] Read logs of service from GUI and display them.
-
+- [ ] Add Windows Form Functionality (Settings Page) that reads/writes to the config file for easy configurability.
+- [ ] Replace service polling with event on service status.
 
 ## Gotcha's
 - Currently to Install the service you must be an Administrator on your Machine, or at least run the GUI as as Admin.
