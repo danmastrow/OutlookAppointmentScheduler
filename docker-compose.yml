@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  outlookappointmentschedulerapi:
+    image: ${DOCKER_REGISTRY}outlookappointmentschedulerapi
+    build:
+      context: .
+      dockerfile: OutlookAppointmentSchedulerAPI\Dockerfile

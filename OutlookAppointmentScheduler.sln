@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAppointmentSchedulerGUI", "OutlookAppointmentSchedulerGUI\OutlookAppointmentSchedulerGUI.csproj", "{81A353DE-0F1D-4DDB-8BA5-B202889AEEDD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAppointmentScheduler", "OutlookAppointmentScheduler\OutlookAppointmentScheduler.csproj", "{9DD1EFB1-3923-43B9-A65E-09FBFE467625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAppointmentSchedulerAPI", "OutlookAppointmentSchedulerAPI\OutlookAppointmentSchedulerAPI.csproj", "{39B8F250-B930-47CD-826A-850771EF76CD}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B989D30B-5645-4F43-B6C0-01ECB5A5D09B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{9DD1EFB1-3923-43B9-A65E-09FBFE467625}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD1EFB1-3923-43B9-A65E-09FBFE467625}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD1EFB1-3923-43B9-A65E-09FBFE467625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B8F250-B930-47CD-826A-850771EF76CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B8F250-B930-47CD-826A-850771EF76CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B8F250-B930-47CD-826A-850771EF76CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B8F250-B930-47CD-826A-850771EF76CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B989D30B-5645-4F43-B6C0-01ECB5A5D09B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B989D30B-5645-4F43-B6C0-01ECB5A5D09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B989D30B-5645-4F43-B6C0-01ECB5A5D09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B989D30B-5645-4F43-B6C0-01ECB5A5D09B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
