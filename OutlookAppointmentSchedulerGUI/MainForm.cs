@@ -252,7 +252,7 @@
                 string value = "";
                 if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(String))
                 {
-                    if (prop.GetValue(booking) is IList collection)
+                    if (prop.GetValue(booking) is IList)
                     {
                         foreach (var collectionItem in prop.GetValue(booking) as IList)
                         {
