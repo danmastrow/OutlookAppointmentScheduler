@@ -4,13 +4,9 @@
 ## Overview
 ![alt text](https://github.com/danmastrow/OutlookAppointmentScheduler/raw/master/OutlookAppointmentSchedulerGUI/img/example.png "Example")
 
-A Topshelf Service with a Windows Form GUI using Quartz Scheduler to automatically create and send Outlook bookings at specific times.
-
-The service runs every 24 hours at a specified time and reads from all JSON files in a folder, that are generated from the GUI.
-It then interprets these JSON files and sends Outlook Appointments appropriately. 
-
 This could be used for example to make Table Tennis bookings if perhaps they were only available from 7 days in advance.
-Or to book Outlook rooms that are highly contested, or just an easier way to manage automatic bookings.
+Or to book Outlook rooms that are highly contested, or just an easier way to manage automatic bookings in an office type system.
+The email account used will the the current user logged in.
 
 ## Getting Started
 1. Build the solution.
@@ -53,3 +49,6 @@ Or to book Outlook rooms that are highly contested, or just an easier way to man
 ## Further Reading
 For manual service installation/configuration for Topshelf help see the following link.
 http://docs.topshelf-project.com/en/latest/overview/commandline.html
+
+A Topshelf Service with a Windows Form GUI using Quartz Scheduler to automatically create and send Outlook bookings at specific times.
+The service runs every 24 hours (configurable) at a specified time and reads all created bookings and sends them as Outlook Appointments.
