@@ -43,6 +43,7 @@ The email account used will the the current user logged in.
 - [ ] Read logs of service from GUI and display them.
 - [ ] Add Windows Form Functionality (Settings Page) that reads/writes to the config file for easy configurability.
 - [ ] Replace service polling with event on service status.
+- [ ] Move application to .NET Core
 
 ## Gotcha's
 - Currently to Install the service you must be an Administrator on your Machine, or at least run the GUI as as Admin.
