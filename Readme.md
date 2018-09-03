@@ -8,7 +8,11 @@ This could be used for example to make Table Tennis bookings if perhaps they wer
 Or to book Outlook rooms that are highly contested, or just an easier way to manage automatic bookings in an office type system.
 The email account used will the the current user logged in.
 
-## Getting Started
+## Getting Started NOW!
+1. To get started immediately simply download the latest release and run the OutlookAppointmentSchedulerGUI.exe
+   https://github.com/danmastrow/OutlookAppointmentScheduler/releases
+
+## Building and the application
 1. Build the solution.
 2. Run the GUI project.
 3. Select Install or Launch Service.
@@ -25,6 +29,7 @@ The email account used will the the current user logged in.
 
 ## Todo
 - [ ] Implement Serilog logging and metrics in the service.
+- [ ] Create installer for the release.
 - [x] Setup Topshelf and Quartz scheduler.
 - [x] Add config file to read appointment information.
 - [x] Create booking and send based upon config information.
